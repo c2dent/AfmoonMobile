@@ -1,14 +1,12 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
-// import IconWithBadge from '../component/IconWithBadge'
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
-import SearchScreen from '../screens/SearchScreen'
 import FeaturedScreen from '../screens/FeaturedScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import AddAdScreen from '../screens/AddAdScreen'
 import MessageScreen from '../screens/MessageScreen'
+import SearchScreenNavigator from './SearchScreenNavigator'
 import { View, Container, Text } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -52,7 +50,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
     if (routeName === 'Search') {
         iconName = 'ios-search'
     } else if (routeName === 'Featured') {
-        iconName = 'ios-star'
+        iconName = 'ios-heart'
     } else if (routeName === 'AddAd') {
         iconName = 'ios-add-circle'
     } else if (routeName === 'Message') {
@@ -67,11 +65,34 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 export default createAppContainer(
     createBottomTabNavigator(
         {
-            Search: { screen: SearchScreen },
-            Featured: {screen: FeaturedScreen},
-            AddAd: {screen: AddAdScreen},
-            Message: {screen: MessageScreen},
-            Profile: { screen: ProfileScreen },
+            Search: {
+                screen: SearchScreenNavigator,
+                navigationOptions: {
+                    title: 'Поиск'
+                }
+             },
+            Featured: {
+                screen: FeaturedScreen,
+                navigationOptions: {
+                    title: 'Избранный'
+                }
+            },
+            AddAd: {
+                screen: AddAdScreen,
+                navigationOptions: {
+                    title: 'Добавит'
+                }
+            },
+            Message: {
+                screen: MessageScreen,
+                navigationOptions: {
+                    title: 'Сообщения'
+                }
+            },
+            Profile: {
+                screen: ProfileScreen,
+                title: 'Профиль'
+            },
         },
         {
             defaultNavigationOptions: ({navigation}) => (

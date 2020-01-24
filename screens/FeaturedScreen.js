@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Search from 'react-native-search-box';
 
 const FeaturedScreen= () => (
     <View style={styles.container}>
@@ -10,8 +11,8 @@ const FeaturedScreen= () => (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
