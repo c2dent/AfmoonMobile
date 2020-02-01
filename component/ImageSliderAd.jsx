@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, ScrollView, Dimensions, Image, Text, Modal } from 'react-native';
-import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
 
 
@@ -44,15 +44,15 @@ class ImageSliderAd extends React.Component {
                     ref={ this.scrollRef }
                 >
                     {
-                        images.map(image => (
+                        images.map((image, i) => (
                             <TouchableHighlight
                                 onPress={() => {
                                     this.setModalVisible(true);
                                 }}
+                                key={i}
                             >
                                 <Image
                                     resizeMode="contain"
-                                    key={image.image}
                                     source={{ uri:'http://192.168.1.6:8000' + image.image }}
                                     style={styles.imageSlider}
                                 />

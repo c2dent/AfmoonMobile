@@ -2,8 +2,9 @@ import React from 'react';
 import SearchScreen from '../screens/SearchScreen';
 import { connect } from 'react-redux'
 import { getAds, setSearchText,
-        loadMoreAds
+        loadMoreAds, getAllCategory
         } from '../store/Search/actions'
+import { setCallChooseCategory } from '../store/ExtendedSearch/actions'
 import Search from 'react-native-search-box'
 import StatusBarBackground from './StatusBarBackground'
 import { View } from 'react-native'
@@ -21,11 +22,11 @@ class SearchContainer extends React.Component {
                     <View style={{ paddingLeft:10, paddingRight:10 }}>
                         <StatusBarBackground style={{backgroundColor:'white'}} />
                         <Search
-                        backgroundColor="white"
-                        titleCancelColor="blue"
-                        cancelTitle = 'Отмен'
-                        iinputBorderRadius={7}
-                        cancelButtonWidth={80}
+                            backgroundColor="white"
+                            titleCancelColor="blue"
+                            cancelTitle = 'Отмен'
+                            iinputBorderRadius={7}
+                            cancelButtonWidth={80}
                         />
                     </View>
                 )
@@ -35,13 +36,16 @@ class SearchContainer extends React.Component {
     render() {
         return (
             <View style={{ flex:1 }}>
-                <SearchScreen ad_list={this.props.ad_list}
-                getAds={this.props.getAds}
-                loadMoreAds={this.props.loadMoreAds}
-                valueSearchText={this.props.valueSearchText}
-                current_page={this.props.current_page}
-                max_page={this.props.max_page}
-                navigation={this.props.navigation}
+                <SearchScreen
+                    ad_list={this.props.ad_list}
+                    getAds={this.props.getAds}
+                    loadMoreAds={this.props.loadMoreAds}
+                    valueSearchText={this.props.valueSearchText}
+                    current_page={this.props.current_page}
+                    max_page={this.props.max_page}
+                    navigation={this.props.navigation}
+                    setCallChooseCategory={this.props.setCallChooseCategory}
+                    getAllCategory={this.props.getAllCategory}
                 />
             </View>
         )
@@ -59,7 +63,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getAds, setSearchText,
-    loadMoreAds
+    loadMoreAds,
+    setCallChooseCategory,
+    getAllCategory,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

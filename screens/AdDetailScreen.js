@@ -14,7 +14,6 @@ import Moment from 'moment'
 
 
 const ChoiceAdditionalInfoForAd = (props) => {
-    console.log(props.ad.category)
     if (props.ad.category == 169) {
         return (
             <View style={{flex:1}}>
@@ -22,7 +21,7 @@ const ChoiceAdditionalInfoForAd = (props) => {
                 <AdAdditonalInfo titleInfo="Этаж" valueInfo={props.ad.floor} />
                 <AdAdditonalInfo titleInfo="Общая площадь" valueInfo={props.ad.total_area} />
                 <AdAdditonalInfo titleInfo="Комнаты в квартире" valueInfo={props.ad.number_rooms} />
-                <AdAdditonalInfo titleInfo="Тип продажи" valueInfo={props.ad.rent_buy == true?"Купить":"Снять"} />
+                <AdAdditonalInfo titleInfo="Тип продажи" valueInfo={props.ad.rent_buy ? "Купить" : "Снять"} />
             </View>
         )
     } else if (props.ad.category == 172) {
@@ -35,7 +34,7 @@ const ChoiceAdditionalInfoForAd = (props) => {
                 <AdAdditonalInfo titleInfo="Тип кузова" valueInfo={props.ad.body_type} />
                 <AdAdditonalInfo titleInfo="Пробег" valueInfo={props.ad.mileage} />
                 <AdAdditonalInfo titleInfo="Привод" valueInfo={props.ad.drive_unit} />
-                <AdAdditonalInfo titleInfo="Состояние" valueInfo={props.ad.condition == true?"не битый":"битый"} />
+                <AdAdditonalInfo titleInfo="Состояние" valueInfo={props.ad.condition ? "не битый" : "битый"} />
                 <AdAdditonalInfo titleInfo="Тип двигателя" valueInfo={props.ad.engine_type} />
             </View>
         )
@@ -56,7 +55,7 @@ const ChoiceAdditionalInfoForAd = (props) => {
     } else if (props.ad.category == 168) {
         return (
             <View>
-                <AdAdditonalInfo titleInfo="Поль" valueInfo={props.ad.second_hand == true?"Мужской":"Жениский"} />
+                <AdAdditonalInfo titleInfo="Поль" valueInfo={props.ad.second_hand ? "Мужской" : "Жениский"} />
                 <AdAdditonalInfo titleInfo="Возраст" valueInfo={props.ad.age} />
             </View>
         )
@@ -64,7 +63,7 @@ const ChoiceAdditionalInfoForAd = (props) => {
                 || props.ad.category == 150 || props.ad.category == 151) {
         return (
             <View>
-                <AdAdditonalInfo titleInfo="Состояние" valueInfo={props.ad.second_hand == true?"Новый":"б/у"} />
+                <AdAdditonalInfo titleInfo="Состояние" valueInfo={props.ad.second_hand ? "Новый" : "б/у"} />
             </View>
         )
     } else {
@@ -119,7 +118,7 @@ const AvatarWithoutPic = (props) => {
             }}
         >
             <Text style={{fontSize:40}}>
-                {props.nickname[0]}
+                {props.nickname ? props.nickname[0] : 'A'}
             </Text>
         </View>
     )
@@ -154,6 +153,7 @@ export default class AdDetailScreen extends React.Component {
         super(props);
 
         this.state = {
+            isHideSliderImage: true,
         }
     }
 
@@ -165,16 +165,17 @@ export default class AdDetailScreen extends React.Component {
         const { isLoading, isLoaded, ad } = this.props;
         if (isLoading) return <Text>Пожалуюста подождите</Text>
         if (!isLoaded || !ad) return null;
+        if (!ad.data.images) { this.state.isHideSliderImage = false }
         return (
             <View style={ styles.adDetailWrap }>
                 <ScrollView>
                     <View>
 
-
-
-                        <View style={styles.wrapImageSlide}>
-                            <ImageSliderAd images={ad.data.images} />
-                        </View>
+                        {this.state.isHideSliderImage == true?
+                            <View style={styles.wrapImageSlide} hidden={this.state.isHideSliderImage} >
+                                <ImageSliderAd images={ad.data.images} />
+                            </View>:<></>
+                        }
                         <View
                             style={{
                                 margin:10

@@ -3,12 +3,18 @@ export const GET_AD_LIST = "GET_AD_LIST";
 export const LOAD_MORE_AD_LIST = 'LOAD_MORE_AD_LIST';
 export const SET_SEACH_TEXT = 'SET_SEACH_TEXT';
 export const MAX_PAGE_TO_TRUE = 'MAX_PAGE_TO_TRUE'
+export const SET_CATEGORY_SUCCES = 'SET_CATEGORY_SUCCES'
 
 
 export const setAdsSucces = (data) => ({
     type: GET_AD_LIST,
     payload: {data}
 });
+
+export const setCategorySucces = (data) => ({
+    type: SET_CATEGORY_SUCCES,
+    payload: {data}
+})
 
 export const loadMoreAdsSucces = (data) => ({
     type: LOAD_MORE_AD_LIST,
@@ -53,6 +59,18 @@ export const getAds = () => {
             })
             .catch(error => {
                 throw error;
+            })
+    }
+}
+
+export const getAllCategory = () => {
+    return (dispatch) => {
+        return axios.get('api/category/')
+            .then(response => {
+                dispatch(setCategorySucces(response.data))
+            })
+            .catch(error => {
+                throw error
             })
     }
 }

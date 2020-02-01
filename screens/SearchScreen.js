@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, SafeAreaView, FlatList, RefreshControl } from 'react-native'
+import { View, SafeAreaView, FlatList, RefreshControl } from 'react-native'
 import AdGeneral from '../component/AdGeneral'
-import { TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableHighlight} from 'react-native-gesture-handler';
+import { Button } from 'react-native-elements'
+
 
 
 
@@ -16,6 +18,7 @@ export default class SearchScreen extends Component
     }
     componentDidMount(){
         this.props.getAds();
+        this.props.getAllCategory();
     }
 
     _onRefresh = () => {
@@ -35,6 +38,24 @@ export default class SearchScreen extends Component
     {
         return (
                 <SafeAreaView style={{ marginLeft: 10, marginRight:10, marginTop:5 }}>
+                    <TouchableHighlight
+                        style={{ margin:5 }}
+                        onPress={() =>
+                            {
+                                this.props.setCallChooseCategory(this.props.navigation.state.routeName)
+                                this.props.navigation.navigate('ChooseCategory')
+                            }
+                        }
+                    >
+                        <Button
+                            title="Выбрат категории"
+                            buttonStyle={{
+                                backgroundColor: '#28a745',
+                                borderRadius:5,
+                                width: '100%'
+                            }}
+                        />
+                    </TouchableHighlight>
                     <FlatList
                         data={this.props.ad_list}
                         renderItem={({ item }) => (

@@ -1,13 +1,15 @@
 import { GET_AD_LIST,
     SET_SEACH_TEXT,
     LOAD_MORE_AD_LIST,
-    MAX_PAGE_TO_TRUE
+    MAX_PAGE_TO_TRUE,
+    SET_CATEGORY_SUCCES
     } from './actions';
 
 const defaultState = {
     ad_list : '',
     current_page: 0,
     max_page: false,
+    categories: '',
     valueSearchText:'all Good!!!!',
 }
 export const searchReducer  = (state=defaultState, action) => {
@@ -34,6 +36,11 @@ export const searchReducer  = (state=defaultState, action) => {
             return {
                 ...state,
                 max_page:action.payload
+            }
+        case SET_CATEGORY_SUCCES:
+            return {
+                ...state,
+                categories: action.payload
             }
     }
 
