@@ -2,10 +2,10 @@ import SearchContainer from '../component/SearchContainer'
 import { createStackNavigator } from 'react-navigation-stack'
 import AdDetailContainer from '../component/AdDetailContainer'
 import ExtendedSearchContainer from '../component/ExtendedSearchContainer'
-import ChooseCategoryContainer from '../component/ChooseCategoryContainer'
 import AdFilterOptions from '../modal/AdFilterOptions'
-import ChooseCategoryNavigation from './ChooseCategoryNavigation'
 import CategoryContainer from '../component/CategoryContainer'
+import RegionContainer from '../component/RegionContainer'
+
 
 
 const SearchScreenNavigator = createStackNavigator({
@@ -21,12 +21,6 @@ const SearchScreenNavigator = createStackNavigator({
     AdFilterOptions: {
       screen: AdFilterOptions
     },
-    ChooseCategory: {
-      screen: ChooseCategoryNavigation
-    },
-    ChooseCategoryInFilter: {
-      screen: ChooseCategoryNavigation
-    },
     Category: {
       screen: CategoryContainer,
     },
@@ -38,6 +32,24 @@ const SearchScreenNavigator = createStackNavigator({
     },
     categoryLevelFourth: {
       screen: CategoryContainer,
+    },
+    CategoryFilter: {
+      screen: CategoryContainer,
+    },
+    categoryFilterLevelSecond: {
+      screen: CategoryContainer,
+    },
+    categoryFilterLevelTird: {
+      screen: CategoryContainer,
+    },
+    categoryFilterLevelFourth: {
+      screen: CategoryContainer,
+    },
+    regionFilter: {
+      screen: RegionContainer,
+    },
+    regionFilterLevelSecond: {
+      screen: RegionContainer
     }
   },
   {

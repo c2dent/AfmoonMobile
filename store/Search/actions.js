@@ -4,6 +4,7 @@ export const LOAD_MORE_AD_LIST = 'LOAD_MORE_AD_LIST';
 export const SET_SEACH_TEXT = 'SET_SEACH_TEXT';
 export const MAX_PAGE_TO_TRUE = 'MAX_PAGE_TO_TRUE'
 export const SET_CATEGORY_SUCCES = 'SET_CATEGORY_SUCCES'
+export const SET_REGION_SUCCES = 'SET_REGION_SUCCES'
 
 
 export const setAdsSucces = (data) => ({
@@ -13,6 +14,11 @@ export const setAdsSucces = (data) => ({
 
 export const setCategorySucces = (data) => ({
     type: SET_CATEGORY_SUCCES,
+    payload: {data}
+})
+
+export const setRegionSucces = (data) => ({
+    type: SET_REGION_SUCCES,
     payload: {data}
 })
 
@@ -68,6 +74,18 @@ export const getAllCategory = () => {
         return axios.get('api/category/')
             .then(response => {
                 dispatch(setCategorySucces(response.data))
+            })
+            .catch(error => {
+                throw error
+            })
+    }
+}
+
+export const getAllRegion = () => {
+    return (dispatch) => {
+        return axios.get('api/region/')
+            .then(response => {
+                dispatch(setRegionSucces(response.data))
             })
             .catch(error => {
                 throw error

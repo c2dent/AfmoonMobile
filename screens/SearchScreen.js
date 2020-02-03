@@ -19,6 +19,7 @@ export default class SearchScreen extends Component
     componentDidMount(){
         this.props.getAds();
         this.props.getAllCategory();
+        this.props.getAllRegion();
     }
 
     _onRefresh = () => {
@@ -42,8 +43,11 @@ export default class SearchScreen extends Component
                         style={{ margin:5 }}
                         onPress={() =>
                             {
-                                this.props.setCallChooseCategory(this.props.navigation.state.routeName)
-                                this.props.navigation.navigate('ChooseCategory')
+                                this.props.navigation.navigate('Category', {
+                                    level:1,
+                                    lft: 1,
+                                    rght:400
+                                })
                             }
                         }
                     >

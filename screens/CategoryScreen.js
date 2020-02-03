@@ -2,6 +2,9 @@ import React from 'react'
 import { Text, View } from 'native-base';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { ScrollView } from 'react-native';
+import { setCurrentCategory } from '../store/ExtendedSearch/actions'
+import { connect } from 'react-redux'
+
 
 
 class CategoryScreen extends React.Component {
@@ -33,6 +36,12 @@ class CategoryScreen extends React.Component {
             nextScreen = "categoryLevelTird"
         } else if (this.props.navigation.state.routeName == "categoryLevelTird") {
             nextScreen = "categoryLevelFourth"
+        } else if (this.props.navigation.state.routeName == "CategoryFilter") {
+            nextScreen = 'categoryFilterLevelSecond'
+        } else if (this.props.navigation.state.routeName == "categoryFilterLevelSecond") {
+            nextScreen = "categoryFilterLevelTird"
+        } else if (this.props.navigation.state.routeName == "categoryFilterLevelTird") {
+            nextScreen = "categoryFilterLevelFourth"
         }
 
 
@@ -60,7 +69,7 @@ class CategoryScreen extends React.Component {
                         </View>
                     </TouchableOpacity>
                     {
-                        this.state.categories.map(category => (
+                        this.state.categories.map((category, index) => (
                             <TouchableOpacity
                                 style={{
                                     paddingBottom:18,
@@ -70,7 +79,7 @@ class CategoryScreen extends React.Component {
                                     backgroundColor: 'white',
                                     marginBottom:2
                                 }}
-                                key={category.slug}
+                                key={index}
                                 onPress={() =>
                                     {
                                         if (category.rght-category.lft>1) {
@@ -79,6 +88,20 @@ class CategoryScreen extends React.Component {
                                                 lft: category.lft,
                                                 level: category.level + 1
                                             })
+                                        } else {
+                                            if (
+                                                this.props.navigation.state.routeName == 'Category' ||
+                                                this.props.navigation.state.routeName == 'categoryLevelSecond' ||
+                                                this.props.navigation.state.routeName == 'categoryLevelTird' ||
+                                                this.props.navigation.state.routeName == 'categoryLevelFourth'
+                                            ) {
+                                                this.props.setCurrentCategory(category)
+                                                this.props.navigation.navigate('ExtendedSearch')
+                                            } else {
+                                                this.props.navigation.navigate('AdFilterOptions', {
+                                                    category:category
+                                                })
+                                            }
                                         }
                                     }
                                 }
@@ -99,4 +122,14 @@ class CategoryScreen extends React.Component {
     }
 }
 
-export default CategoryScreen;
+const mapStateToProps = state => {
+    return {
+        currentCategory: state.extendedSearch.currentCategory,
+    };
+};
+
+const mapDispatchToProps = {
+    setCurrentCategory,
+};
+
+export default  connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);

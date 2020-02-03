@@ -2,7 +2,8 @@ import React from 'react';
 import SearchScreen from '../screens/SearchScreen';
 import { connect } from 'react-redux'
 import { getAds, setSearchText,
-        loadMoreAds, getAllCategory
+        loadMoreAds, getAllCategory,
+        getAllRegion
         } from '../store/Search/actions'
 import { setCallChooseCategory } from '../store/ExtendedSearch/actions'
 import Search from 'react-native-search-box'
@@ -46,6 +47,7 @@ class SearchContainer extends React.Component {
                     navigation={this.props.navigation}
                     setCallChooseCategory={this.props.setCallChooseCategory}
                     getAllCategory={this.props.getAllCategory}
+                    getAllRegion = {this.props.getAllRegion}
                 />
             </View>
         )
@@ -66,6 +68,7 @@ const mapDispatchToProps = {
     loadMoreAds,
     setCallChooseCategory,
     getAllCategory,
+    getAllRegion
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

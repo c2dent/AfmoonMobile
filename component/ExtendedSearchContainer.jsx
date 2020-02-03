@@ -3,8 +3,8 @@ import ExtendedSearchScreen from '../screens/ExtendedSearchScreen'
 import { Ionicons } from '@expo/vector-icons'
 import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { setCallChooseCategory } from '../store/ExtendedSearch/actions'
 import { connect } from 'react-redux'
+import { getAds, setAdsLoading } from '../store/ExtendedSearch/actions'
 
 
 
@@ -57,8 +57,13 @@ class ExtendedSearchContainer extends React.Component {
     render() {
         return (
             <ExtendedSearchScreen
-                setCallChooseCategory={this.props.setCallChooseCategory}
                 navigation={this.props.navigation}
+                isLoaded = {this.props.isLoaded}
+                isLoading = {this.props.isLoading}
+                ads = {this.props.ads}
+                currentCategory = {this.props.currentCategory}
+                currentRegion={this.props.currentRegion}
+                getAds = {this.props.getAds}
             />
         )
     }
@@ -66,11 +71,16 @@ class ExtendedSearchContainer extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        isLoading : state.extendedSearch.isLoading,
+        isLoaded : state.extendedSearch.isLoaded,
+        ads : state.extendedSearch.ads,
+        currentCategory : state.extendedSearch.currentCategory,
+        currentRegion: state.extendedSearch.currentRegion
     };
 };
 
 const mapDispatchToProps = {
-    setCallChooseCategory,
+    getAds, setAdsLoading
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(ExtendedSearchContainer);

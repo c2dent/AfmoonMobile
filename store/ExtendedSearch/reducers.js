@@ -1,23 +1,50 @@
 import {
-    SET_CALL_CHOOSE_CATEGORY,
+    SET_CURRENT_CATTEGORY,
+    SET_CURRENT_REGION,
+    GET_ADS_LOADING,
+    GET_ADS_SUCCES
 } from './actions'
 
 const defaultState = {
-    screenWichCallChooseCategory: 'NOt',
+    isLoading: false,
+    isLoaded: false,
+    ads: '',
     searchText:'',
     currentCategory: '',
-    currentRegion: '',
+    currentRegion: {
+        "title": "Туркменистан",
+        "slug": "turkmenistan",
+        "lft": 0,
+        "rght": 401,
+    },
     priceFrom: '',
-    priceBefore: '',
+    priceUp: '',
 }
 
 export const extendedSearchReducer = (state=defaultState, action) => {
 
     switch(action.type) {
-        case SET_CALL_CHOOSE_CATEGORY:
+        case SET_CURRENT_CATTEGORY:
             return {
                 ...state,
-                screenWichCallChooseCategory: action.payload
+                currentCategory: action.payload
+            }
+        case SET_CURRENT_REGION:
+            return {
+                ...state,
+                currentRegion: action.payload
+            }
+        case GET_ADS_LOADING:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case GET_ADS_SUCCES:
+            return {
+                ...state,
+                isLoading:false,
+                isLoaded:true,
+                ads: action.payload
             }
     }
 
