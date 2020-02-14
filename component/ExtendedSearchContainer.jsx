@@ -64,6 +64,27 @@ class ExtendedSearchContainer extends React.Component {
                 currentCategory = {this.props.currentCategory}
                 currentRegion={this.props.currentRegion}
                 getAds = {this.props.getAds}
+                priceUp={this.props.priceUp}
+                priceFrom={this.props.priceFrom}
+                order= {this.props.order}
+                gender = {this.props.gender}
+                ageFrom = {this.props.ageFrom}
+                ageUp = {this.props.ageUp}
+                schedule = {this.props.schedule}
+                workExperience = {this.props.workExperience}
+                houseAreaFrom = {this.props.houseAreaFrom}
+                houseAreaUp = {this.props.houseAreaUp}
+                landAreaFrom = {this.props.landAreaFrom}
+                landAreaUp = {this.props.landAreaUp}
+
+                floorsInHouseFrom = {this.props.floorsInHouseFrom}
+                floorsInHouseUp = {this.props.floorsInHouseUp}
+                floorFrom = {this.props.floorFrom}
+                floorUp = {this.props.floorUp}
+                totalAreaFrom = {this.props.totalAreaFrom}
+                totalAreaUp = {this.props.totalAreaUp}
+                numberRooms = {this.props.numberRooms}
+                rentBuy = {this.props.rentBuy}
             />
         )
     }
@@ -75,12 +96,33 @@ const mapStateToProps = state => {
         isLoaded : state.extendedSearch.isLoaded,
         ads : state.extendedSearch.ads,
         currentCategory : state.extendedSearch.currentCategory,
-        currentRegion: state.extendedSearch.currentRegion
+        currentRegion: state.extendedSearch.currentRegion,
+        priceFrom: state.extendedSearch.priceFrom,
+        priceUp: state.extendedSearch.priceUp,
+        order: state.extendedSearch.order,
+        gender: state.extendedSearch.gender,
+        ageFrom: state.extendedSearch.ageFrom,
+        ageUp: state.extendedSearch.ageUp,
+        schedule: state.extendedSearch.schedule,
+        workExperience : state.extendedSearch.workExperience,
+        houseAreaFrom: state.extendedSearch.houseAreaFrom,
+        houseAreaUp: state.extendedSearch.houseAreaUp,
+        landAreaFrom: state.extendedSearch.landAreaFrom,
+        landAreaUp: state.extendedSearch.landAreaUp,
+
+        floorsInHouseFrom : state.extendedSearch.floorsInHouseFrom,
+        floorsInHouseUp : state.extendedSearch.floorsInHouseUp,
+        floorFrom : state.extendedSearch.floorFrom,
+        floorUp : state.extendedSearch.floorUp,
+        totalAreaFrom : state.extendedSearch.totalAreaFrom,
+        totalAreaUp : state.extendedSearch.totalAreaUp,
+        numberRooms : state.extendedSearch.numberRooms,
+        rentBuy : state.extendedSearch.rentBuy,
     };
 };
 
 const mapDispatchToProps = {
-    getAds, setAdsLoading
+    getAds, setAdsLoading,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(ExtendedSearchContainer);

@@ -9,6 +9,16 @@ import { setCallChooseCategory } from '../store/ExtendedSearch/actions'
 import Search from 'react-native-search-box'
 import StatusBarBackground from './StatusBarBackground'
 import { View } from 'react-native'
+import {
+        getSchedule,
+        getWorkExperience,
+        getNumberRooms,
+        getGearShift,
+        getBodyType,
+        getDriveUnit,
+        getEngineType,
+        getMark,
+    } from '../store/General/actions'
 
 
 class SearchContainer extends React.Component {
@@ -48,6 +58,14 @@ class SearchContainer extends React.Component {
                     setCallChooseCategory={this.props.setCallChooseCategory}
                     getAllCategory={this.props.getAllCategory}
                     getAllRegion = {this.props.getAllRegion}
+                    getSchedule = {this.props.getSchedule}
+                    getWorkExperience = {this.props.getWorkExperience}
+                    getNumberRooms = {this.props.getNumberRooms}
+                    getGearShift = {this.props.getGearShift}
+                    getBodyType = {this.props.getBodyType}
+                    getDriveUnit = {this.props.getDriveUnit}
+                    getEngineType = {this.props.getEngineType}
+                    getMark = {this.props.getMark}
                 />
             </View>
         )
@@ -68,7 +86,15 @@ const mapDispatchToProps = {
     loadMoreAds,
     setCallChooseCategory,
     getAllCategory,
-    getAllRegion
+    getAllRegion,
+    getSchedule,
+    getWorkExperience,
+    getNumberRooms,
+    getGearShift,
+    getBodyType,
+    getDriveUnit,
+    getEngineType,
+    getMark,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

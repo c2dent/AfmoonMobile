@@ -5,6 +5,7 @@ import ExtendedSearchContainer from '../component/ExtendedSearchContainer'
 import AdFilterOptions from '../modal/AdFilterOptions'
 import CategoryContainer from '../component/CategoryContainer'
 import RegionContainer from '../component/RegionContainer'
+import ChooseAsList from '../screens/ChooseAsList'
 
 
 
@@ -50,6 +51,9 @@ const SearchScreenNavigator = createStackNavigator({
     },
     regionFilterLevelSecond: {
       screen: RegionContainer
+    },
+    chooseAsList: {
+      screen: ChooseAsList
     }
   },
   {

@@ -55,8 +55,10 @@ const ChoiceAdditionalInfoForAd = (props) => {
     } else if (props.ad.category == 168) {
         return (
             <View>
-                <AdAdditonalInfo titleInfo="Поль" valueInfo={props.ad.second_hand ? "Мужской" : "Жениский"} />
+                <AdAdditonalInfo titleInfo="Поль" valueInfo={props.ad.gender ? "Мужской" : "Жениский"} />
                 <AdAdditonalInfo titleInfo="Возраст" valueInfo={props.ad.age} />
+                <AdAdditonalInfo titleInfo="График работы" valueInfo={props.ad.schedule} />
+                <AdAdditonalInfo titleInfo="Опыть работы" valueInfo={props.ad.work_experience} />
             </View>
         )
     } else if (props.ad.category == 148 || props.ad.category == 149

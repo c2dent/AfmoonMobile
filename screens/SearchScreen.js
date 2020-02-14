@@ -20,6 +20,14 @@ export default class SearchScreen extends Component
         this.props.getAds();
         this.props.getAllCategory();
         this.props.getAllRegion();
+        this.props.getSchedule();
+        this.props.getWorkExperience();
+        this.props.getNumberRooms();
+        this.props.getGearShift();
+        this.props.getBodyType();
+        this.props.getDriveUnit();
+        this.props.getEngineType();
+        this.props.getMark();
     }
 
     _onRefresh = () => {

@@ -12,19 +12,75 @@ class ExtendedSearchScreen extends React.Component {
         super(props)
 
         this.state = {
-            refreshing: false
+            refreshing: false,
         }
     }
 
     componentDidMount () {
-        this.props.getAds(this.props.currentCategory.slug, this.props.currentRegion.slug)
+        if (this.props.currentCategory.id == 168) {
+            this.props.getAds(
+                this.props.currentCategory,
+                this.props.currentRegion.slug,
+                this.props.priceFrom,
+                this.props.priceUp,
+                this.props.order,
+                this.props.gender,
+                this.props.ageFrom,
+                this.props.ageUp,
+                this.props.schedule,
+                this.props.workExperience
+            )
+        } else if (this.props.currentCategory.id == 167) {
+            this.props.getAds(this.props.currentCategory,
+                this.props.currentRegion.slug,
+                this.props.priceFrom,
+                this.props.priceUp,
+                this.props.order,
+                this.props.schedule,
+                this.props.workExperience
+            )
+        } else if (this.props.currentCategory.id == 170) {
+            this.props.getAds(
+                region=this.props.currentCategory,
+                category=this.props.currentRegion.slug,
+                priceFrom=this.props.priceFrom,
+                priceUp=this.props.priceUp,
+                order=this.props.order,
+                houseAreaFrom=this.props.houseAreaFrom,
+                houseAreaUp=this.props.houseAreaUp,
+                landAreaFrom=this.props.landAreaFrom,
+                landAreaUp=this.props.landAreaUp,
+            )
+        } else if (this.props.currentCategory.id == 169) {
+            this.props.getAds(
+                region=this.props.currentCategory,
+                category=this.props.currentRegion.slug,
+                priceFrom=this.props.priceFrom,
+                priceUp=this.props.priceUp,
+                order=this.props.order,
+                floorsInHouseFrom = this.props.floorsInHouseFrom,
+                floorsInHouseUp = this.props.floorsInHouseUp,
+                floorFrom = this.props.floorFrom,
+                floorUp = this.props.floorUp,
+                totalAreaFrom = this.props.totalAreaFrom,
+                totalAreaUp = this.props.totalAreaUp,
+                numberRooms = this.props.numberRooms,
+            )
+        } else {
+            this.props.getAds(
+                this.props.currentCategory,
+                this.props.currentRegion.slug,
+                this.props.priceFrom,
+                this.props.priceUp,
+                this.props.order,
+            )
+        }
     }
 
     _onRefresh = () => {
         this.setState({refreshing: true});
-        this.props.getAds(this.props.currentCategory.slug, this.props.currentRegion.slug).then(() => {
-            this.setState({refreshing:false})
-        })
+        this.componentDidMount()
+        this.setState({refreshing:false})
     }
 
     _onEndReached = () => {
@@ -70,7 +126,7 @@ class ExtendedSearchScreen extends React.Component {
                                 />
                             </TouchableOpacity>
                         )}
-                        keyExtractor={(item => item.id)}
+                        keyExtractor={(item, index) => index.toString()}
                         refreshControl={
                             <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
                         }
