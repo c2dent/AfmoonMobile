@@ -108,31 +108,31 @@ class ExtendedSearchScreen extends React.Component {
                     />
                 </View>
                 <FlatList
-                        data={ads.data}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('AdDetail', {
-                                    slug: item.slug,
-                                    region_slug: item.region_slug,
-                                    category_slug: item.category_slug
-                                })}>
-                                <AdGeneral
-                                    title={item.title}
-                                    image={item.image}
-                                    price={item.price}
-                                    add_date = {item.add_date}
-                                    slug={item.slug}
-                                    region_title={item.region_title}
-                                />
-                            </TouchableOpacity>
-                        )}
-                        keyExtractor={(item, index) => index.toString()}
-                        refreshControl={
-                            <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
-                        }
-                        onEndReachedThreshold={1}
-                        onEndReached={this._onEndReached}
-                    />
+                    data={ads.data}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('AdDetail', {
+                                slug: item.slug,
+                                region_slug: item.region_slug,
+                                category_slug: item.category_slug
+                            })}>
+                            <AdGeneral
+                                title={item.title}
+                                image={item.image}
+                                price={item.price}
+                                add_date = {item.add_date}
+                                slug={item.slug}
+                                region_title={item.region_title}
+                            />
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshControl={
+                        <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
+                    }
+                    onEndReachedThreshold={1}
+                    onEndReached={this._onEndReached}
+                />
             </View>
         )
     }

@@ -9,6 +9,7 @@ export const SET_BODY_TYPE = 'SET_BODY_TYPE'
 export const SET_DRIVE_UNIT = 'SET_DRIVE_UNIT'
 export const SET_ENGINE_TYPE = 'SET_ENGINE_TYPE'
 export const SET_MARK = 'SET_MARK'
+export const IS_AUTHENTICATION = 'IS_AUTHENTICATION'
 
 
 export const setScheduleGeneral = (data) => ({
@@ -53,6 +54,11 @@ export const setMark = (data) => ({
 
 export const setScheduleLoading = () => ({
     type: SET_SCHEDULE_LOADING,
+    payload: ''
+})
+
+export const setIsAuth = () => ({
+    type: IS_AUTHENTICATION,
     payload: ''
 })
 

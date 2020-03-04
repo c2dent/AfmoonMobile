@@ -29,7 +29,13 @@ import {
     SET_BODY_TYPE,
     SET_DRIVE_UNIT,
     SET_ENGINE_TYPE,
-    SET_MARK
+    SET_MARK,
+    SET_MODEL,
+    SET_YEAR_ISSUE_FROM,
+    SET_YEAR_ISSUE_UP,
+    SET_MILEAGE_FROM,
+    SET_MILEAGE_UP,
+    SET_CONDITION,
 } from './actions'
 
 const defaultState = {
@@ -74,6 +80,12 @@ const defaultState = {
     driveUnit:'',
     engineType:'',
     mark: '',
+    model:'',
+    yearIssueFrom:'',
+    yearIssueUp: '',
+    mileageFrom: '',
+    mileageUp: '',
+    condition:'',
 }
 
 export const extendedSearchReducer = (state=defaultState, action) => {
@@ -234,6 +246,36 @@ export const extendedSearchReducer = (state=defaultState, action) => {
             return {
                 ...state,
                 mark: action.payload
+            }
+        case SET_MODEL:
+            return {
+                ...state,
+                model: action.payload
+            }
+        case SET_YEAR_ISSUE_FROM:
+            return {
+                ...state,
+                yearIssueFrom: action.payload
+            }
+        case SET_YEAR_ISSUE_UP:
+            return {
+                ...state,
+                yearIssueUp: action.payload
+            }
+        case SET_MILEAGE_FROM:
+            return {
+                ...state,
+                mileageFrom: action.payload
+            }
+        case SET_MILEAGE_UP:
+            return {
+                ...state,
+                mileageUp:action.payload
+            }
+        case SET_CONDITION:
+            return {
+                ...state,
+                condition: action.payload
             }
     }
 

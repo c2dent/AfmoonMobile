@@ -7,7 +7,8 @@ import {
     SET_BODY_TYPE,
     SET_DRIVE_UNIT,
     SET_ENGINE_TYPE,
-    SET_MARK
+    SET_MARK,
+    IS_AUTHENTICATION,
 } from './actions'
 
 const defaultState = {
@@ -21,6 +22,7 @@ const defaultState = {
     driveUnitGeneral:'',
     engineTypeGeneral:'',
     markGeneral:'',
+    isAuthentication: false,
 }
 
 export const generalReducer = (state=defaultState, action) => {
@@ -72,6 +74,11 @@ export const generalReducer = (state=defaultState, action) => {
             return {
                 ...state,
                 markGeneral: action.payload
+            }
+        case IS_AUTHENTICATION:
+            return {
+                ...state,
+                isAuthentication: true
             }
     }
 

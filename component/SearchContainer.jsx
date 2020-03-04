@@ -8,7 +8,7 @@ import { getAds, setSearchText,
 import { setCallChooseCategory } from '../store/ExtendedSearch/actions'
 import Search from 'react-native-search-box'
 import StatusBarBackground from './StatusBarBackground'
-import { View } from 'react-native'
+import { View, AsyncStorage } from 'react-native'
 import {
         getSchedule,
         getWorkExperience,
@@ -18,12 +18,21 @@ import {
         getDriveUnit,
         getEngineType,
         getMark,
+        setIsAuth,
     } from '../store/General/actions'
 
 
 class SearchContainer extends React.Component {
     constructor (props){
         super(props);
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem('token').then((token) => {
+            if (token) {
+                this.props.setIsAuth()
+            }
+        })
     }
 
     static navigationOptions = () => {
@@ -95,6 +104,7 @@ const mapDispatchToProps = {
     getDriveUnit,
     getEngineType,
     getMark,
+    setIsAuth,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

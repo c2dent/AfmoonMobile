@@ -4,14 +4,17 @@ import { StyleSheet,
         Alert,
         Platform,
         Linking,
-        Image
+        Image,
+        ActivityIndicator
         } from 'react-native';
-import { ImageSliderAd } from '../component/ImageSliderAd'
+import { ImageSliderAd } from '../ImageSliderAd'
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements'
 import Moment from 'moment'
-import ChoiceAdditionalInfoForAd from '../component/ChoiceAdditionalInfoForAd'
-import AdAdditonalInfo from '../component/AdAdditonalInfo'
+import ChoiceAdditionalInfoForAd from '../ChoiceAdditionalInfoForAd'
+import AdAdditonalInfo from '../AdAdditonalInfo'
+import { getAd } from '../../store/AdDetail/actions'
+import { connect } from 'react-redux'
 
 
 
@@ -58,7 +61,7 @@ const AvatarWithPic = (props) => {
 }
 
 
-export default class AdDetailScreen extends React.Component {
+class UserAdDetail extends React.Component {
 
     constructor(props) {
         super(props);
@@ -74,7 +77,7 @@ export default class AdDetailScreen extends React.Component {
 
     render () {
         const { isLoading, isLoaded, ad } = this.props;
-        if (isLoading) return <Text>Пожалуюста подождите</Text>
+        if (isLoading) return <ActivityIndicator size="small" color="#00ff00" />
         if (!isLoaded || !ad) return null;
         if (!ad.data.images) { this.state.isHideSliderImage = false }
         return (
@@ -222,6 +225,18 @@ export default class AdDetailScreen extends React.Component {
         )
     }
 }
+
+
+const mapStateToProps = state => {
+    return {
+    };
+};
+
+const mapDispatchToProps = {
+    getAd
+};
+
+export default  connect(mapStateToProps, mapDispatchToProps)(UserAdDetail);
 
 const styles = StyleSheet.create({
     adDetailWrap: {

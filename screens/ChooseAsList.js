@@ -14,6 +14,7 @@ class ChooseAsList extends React.Component {
     render() {
         let list =  this.props.navigation.getParam('data')
         let setBodyType =  this.props.navigation.getParam('setBodyType')
+        let renderIndex =  this.props.navigation.getParam('renderIndex')
         return (
             <ScrollView>
                 {
@@ -42,7 +43,7 @@ class ChooseAsList extends React.Component {
                                     <Text style={{
                                         fontSize:20,
                                     }}>
-                                        { item[1] }
+                                        { item[renderIndex] }
                                     </Text>
                                 </View>
                             </TouchableOpacity>

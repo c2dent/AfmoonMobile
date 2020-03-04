@@ -6,6 +6,7 @@ import StatusBarBackground from '../component/StatusBarBackground'
 import { connect } from 'react-redux'
 import { Button, Input, CheckBox } from 'react-native-elements'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import AdditionalFilter from '../component/AdditionalFilter'
 import { setCurrentCategory,
             setCurrentRegion,
             setPriceFrom,
@@ -34,446 +35,480 @@ import { setCurrentCategory,
             setDriveUnit,
             setEngineType,
             setMark,
+            setModel,
+            setYearIssueFrom,
+            setYearIssueUp,
+            setMileageFrom,
+            setMileageUp,
+            setCondition
             } from '../store/ExtendedSearch/actions'
 
 
 
-const AdditionalFilter = (props) => {
+// const AdditionalFilter = (props) => {
 
 
-    const radio_func = (array) => {
-        set_array = []
-        array.map((item) => {
-            set_array.push({'label':item[1], 'value':item[0]})
-        })
-        return set_array
-    }
+//     const radio_func = (array) => {
+//         set_array = []
+//         array.map((item) => {
+//             set_array.push({'label':item[1], 'value':item[0]})
+//         })
+//         return set_array
+//     }
 
 
-    if (props.category.id == 172) {  //Avtomobil
-        const setBodyType = (data) => {
-            props.setValueBodyType(data[0])
-            body_type = data[1]
-            console.log(body_type)
-        }
-        let body_type = ''
-        return (
-            <View>
+//     if (props.category.id == 172) {  //Avtomobil
+//         const setBodyType = (data) => {
+//             props.setValueBodyType(data[0])
+//             body_type = data[1]
+//             console.log(body_type)
+//         }
+//         let body_type = ''
+//         let mark = ''
+//         return (
+//             <View>
 
-
-                <TouchableOpacity
-                        style={{
-                            paddingBottom:18,
-                            paddingTop:18,
-                            paddingLeft:10,
-                            paddingRight:10,
-                            backgroundColor: 'white',
-                            marginBottom:2
-                        }}
-                        onPress={() => {
-                            props.navigation.navigate('chooseAsList', {
-                                data:props.bodyTypeGeneral,
-                                setBodyType: (data) => setBodyType(data)
-                            })
-                        }}
-                    >
-                        <View>
-                            <Text style={{
-                                fontSize:20,
-                            }}>
-                                {body_type ? body_type : 'Тип кузова'}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-
-
-            </View>
-        )
-    } else if (props.category.id == 169) {  //Apartment
-        var number_rooms_props = radio_func(props.numberRoomsGeneral)
-        return (
-            <View>
-                <View  // floors in House
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueFloorsInHouseFrom(text)}
-                        placeholder='Этажы в доме от'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.floorsInHouseFrom}
-                    />
-                </View>
-
-
-                <View  // floors in House
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueFloorsInHouseUp(text)}
-                        placeholder='Этажы в доме до'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.floorsInHouseUp}
-                    />
-                </View>
-
-
-                <View  // floorFrom
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueFloorFrom(text)}
-                        placeholder='Этаж от'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.floorFrom}
-                    />
-                </View>
-
-
-                <View  // floorUp
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueFloorUp(text)}
-                        placeholder='Этаж до'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.floorUp}
-                    />
-                </View>
-
-
-                <View  // TotalAreaFrom
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueTotalAreaFrom(text)}
-                        placeholder='Общая площадь от'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.totalAreaFrom}
-                    />
-                </View>
-
-
-                <View  // TotalAreaUp
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueTotalAreaUp(text)}
-                        placeholder='Общая площадь до'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.totalAreaUp}
-                    />
-                </View>
-
-
-                <View style={{marginBottom:15}}>
-                    <View style={{ backgroundColor: 'white', padding: 10}}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
-                            <Text style={{ fontSize: 18, color: '#969494' }}>
-                                Количество комнат
-                            </Text>
-                        </View>
-                        <View>
-                            <RadioForm
-                                radio_props={number_rooms_props}
-                                initial={props.numberRooms}
-                                buttonColor={'#28a745'}
-                                onPress={(value) => {props.setValueNumberRooms(value)}}
-                                selectedButtonColor={'#28a745'}
-                                buttonSize={18}
-                                labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
-                                selectedLabelColor={'#28a745'}
-                            />
-                        </View>
-                    </View>
-                </View>
-
-
-            </View>
-        )
-    } else if (props.category.id == 170) {  //Houe
-        return (
-            <View>
-
-                <View  // HouseAreaFrom
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueHouseAreaFrom(text)}
-                        placeholder='Площадь дома от'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.houseAreaFrom}
-                    />
-                </View>
-
-
-                <View  // HouseAreaUp
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueHouseAreaUp(text)}
-                        placeholder='Площадь дома до'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.houseAreaUp}
-                    />
-                </View>
-
-
-                <View  // LandAreaFrom
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueLandAreaFrom(text)}
-                        placeholder='Площадь участка от'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.landAreaFrom}
-                    />
-                </View>
-
-
-                <View  // LandAreaUp
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueLandAreaUp(text)}
-                        placeholder='Площадь участка до'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.landAreaUp}
-                    />
-                </View>
-
-            </View>
-        )
-    } else if (props.category.id == 167) {  //  VACANCY
-        var schedule_props = radio_func(props.schedule)
-        var work_experience_props = radio_func(props.workExperience)
-        return (
-            <View>
-                <View style={{marginBottom:15}}>
-                    <View style={{ backgroundColor: 'white', padding: 10}}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
-                            <Text style={{ fontSize: 18, color: '#969494' }}>
-                                Опыть работы
-                            </Text>
-                        </View>
-                        <View>
-                            <RadioForm
-                                radio_props={work_experience_props}
-                                initial={props.gender}
-                                buttonColor={'#28a745'}
-                                onPress={(value) => {props.setValueWorkExperience(value)}}
-                                selectedButtonColor={'#28a745'}
-                                buttonSize={18}
-                                labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
-                                selectedLabelColor={'#28a745'}
-                            />
-                        </View>
-                    </View>
-                </View>
-
-
-                <View style={{marginBottom:15}}>
-                    <View style={{ backgroundColor: 'white', padding: 10}}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
-                            <Text style={{ fontSize: 18, color: '#969494' }}>
-                                График работы
-                            </Text>
-                        </View>
-                        <View>
-                            <RadioForm
-                                radio_props={schedule_props}
-                                initial={props.gender}
-                                buttonColor={'#28a745'}
-                                onPress={(value) => {props.setValueSchedule(value)}}
-                                selectedButtonColor={'#28a745'}
-                                buttonSize={18}
-                                labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
-                                selectedLabelColor={'#28a745'}
-                            />
-                        </View>
-                    </View>
-                </View>
-            </View>
-        )
-    } else if (props.category.id == 168) {  //Resume
-        var gender_props = [
-            {label:'Не имееть значение', value: '' },
-            {label: 'Мужской', value: 'male' },
-            {label: 'Женский', value: 'female' }
-        ]
-        var schedule_props = radio_func(props.schedule)
-        var work_experience_props = radio_func(props.workExperience)
-        return (
-            <View>
-                <View // Gender
-                    style={{
-                        backgroundColor: 'white', padding: 10
-                    }}
-                >
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
-                        <Text style={{ fontSize: 18, color: '#969494' }}>
-                            Пол
-                        </Text>
-                    </View>
-                    <View>
-                        <RadioForm
-                            radio_props={gender_props}
-                            initial={props.gender}
-                            buttonColor={'#28a745'}
-                            onPress={(value) => {props.setValueGender(value)}}
-                            selectedButtonColor={'#28a745'}
-                            buttonSize={18}
-                            labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
-                            selectedLabelColor={'#28a745'}
-                        />
-                    </View>
-                </View>
-
-
-                <View  // ageFrom
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueAgeFrom(text)}
-                        placeholder='Возраст от'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.ageFrom}
-                    />
-                </View>
+//                 <TouchableOpacity   // MARK
+//                     style={{
+//                         paddingBottom:18,
+//                         paddingTop:18,
+//                         paddingLeft:10,
+//                         paddingRight:10,
+//                         backgroundColor: 'white',
+//                         marginBottom:2
+//                     }}
+//                     onPress={() => {
+//                         props.navigation.navigate('chooseAsList', {
+//                             data:props.bodyTypeGeneral,
+//                             setBodyType: (data) => setBodyType(data)
+//                         })
+//                     }}
+//                 >
+//                     <View>
+//                         <Text style={{
+//                             fontSize:20,
+//                         }}>
+//                             {mark ? mark : 'Марка'}
+//                         </Text>
+//                     </View>
+//                 </TouchableOpacity>
 
 
 
-                <View  // ageUp
-                    style={{
-                        marginBottom:10,
-                        marginTop:10
-                    }}
-                >
-                    <Input
-                        keyboardType="numeric"
-                        onChangeText={(text) => props.setValueAgeUp(text)}
-                        placeholder='Возраст до'
-                        inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
-                        inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
-                        defaultValue={props.ageUp}
-                    />
-                </View>
+
+//                 <TouchableOpacity   // BODY TYPE
+//                         style={{
+//                             paddingBottom:18,
+//                             paddingTop:18,
+//                             paddingLeft:10,
+//                             paddingRight:10,
+//                             backgroundColor: 'white',
+//                             marginBottom:2
+//                         }}
+//                         onPress={() => {
+//                             props.navigation.navigate('chooseAsList', {
+//                                 data:props.bodyTypeGeneral,
+//                                 setBodyType: (data) => setBodyType(data)
+//                             })
+//                         }}
+//                     >
+//                         <View>
+//                             <Text style={{
+//                                 fontSize:20,
+//                             }}>
+//                                 {body_type ? body_type : 'Тип кузова'}
+//                             </Text>
+//                         </View>
+//                     </TouchableOpacity>
+
+
+//             </View>
+//         )
+//     } else if (props.category.id == 169) {  //Apartment
+//         var number_rooms_props = radio_func(props.numberRoomsGeneral)
+//         return (
+//             <View>
+//                 <View  // floors in House
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueFloorsInHouseFrom(text)}
+//                         placeholder='Этажы в доме от'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.floorsInHouseFrom}
+//                     />
+//                 </View>
+
+
+//                 <View  // floors in House
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueFloorsInHouseUp(text)}
+//                         placeholder='Этажы в доме до'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.floorsInHouseUp}
+//                     />
+//                 </View>
+
+
+//                 <View  // floorFrom
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueFloorFrom(text)}
+//                         placeholder='Этаж от'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.floorFrom}
+//                     />
+//                 </View>
+
+
+//                 <View  // floorUp
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueFloorUp(text)}
+//                         placeholder='Этаж до'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.floorUp}
+//                     />
+//                 </View>
+
+
+//                 <View  // TotalAreaFrom
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueTotalAreaFrom(text)}
+//                         placeholder='Общая площадь от'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.totalAreaFrom}
+//                     />
+//                 </View>
+
+
+//                 <View  // TotalAreaUp
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueTotalAreaUp(text)}
+//                         placeholder='Общая площадь до'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.totalAreaUp}
+//                     />
+//                 </View>
+
+
+//                 <View style={{marginBottom:15}}>
+//                     <View style={{ backgroundColor: 'white', padding: 10}}>
+//                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
+//                             <Text style={{ fontSize: 18, color: '#969494' }}>
+//                                 Количество комнат
+//                             </Text>
+//                         </View>
+//                         <View>
+//                             <RadioForm
+//                                 radio_props={number_rooms_props}
+//                                 initial={props.numberRooms}
+//                                 buttonColor={'#28a745'}
+//                                 onPress={(value) => {props.setValueNumberRooms(value)}}
+//                                 selectedButtonColor={'#28a745'}
+//                                 buttonSize={18}
+//                                 labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
+//                                 selectedLabelColor={'#28a745'}
+//                             />
+//                         </View>
+//                     </View>
+//                 </View>
+
+
+//             </View>
+//         )
+//     } else if (props.category.id == 170) {  //Houe
+//         return (
+//             <View>
+
+//                 <View  // HouseAreaFrom
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueHouseAreaFrom(text)}
+//                         placeholder='Площадь дома от'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.houseAreaFrom}
+//                     />
+//                 </View>
+
+
+//                 <View  // HouseAreaUp
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueHouseAreaUp(text)}
+//                         placeholder='Площадь дома до'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.houseAreaUp}
+//                     />
+//                 </View>
+
+
+//                 <View  // LandAreaFrom
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueLandAreaFrom(text)}
+//                         placeholder='Площадь участка от'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.landAreaFrom}
+//                     />
+//                 </View>
+
+
+//                 <View  // LandAreaUp
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueLandAreaUp(text)}
+//                         placeholder='Площадь участка до'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.landAreaUp}
+//                     />
+//                 </View>
+
+//             </View>
+//         )
+//     } else if (props.category.id == 167) {  //  VACANCY
+//         var schedule_props = radio_func(props.schedule)
+//         var work_experience_props = radio_func(props.workExperience)
+//         return (
+//             <View>
+//                 <View style={{marginBottom:15}}>
+//                     <View style={{ backgroundColor: 'white', padding: 10}}>
+//                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
+//                             <Text style={{ fontSize: 18, color: '#969494' }}>
+//                                 Опыть работы
+//                             </Text>
+//                         </View>
+//                         <View>
+//                             <RadioForm
+//                                 radio_props={work_experience_props}
+//                                 initial={props.gender}
+//                                 buttonColor={'#28a745'}
+//                                 onPress={(value) => {props.setValueWorkExperience(value)}}
+//                                 selectedButtonColor={'#28a745'}
+//                                 buttonSize={18}
+//                                 labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
+//                                 selectedLabelColor={'#28a745'}
+//                             />
+//                         </View>
+//                     </View>
+//                 </View>
+
+
+//                 <View style={{marginBottom:15}}>
+//                     <View style={{ backgroundColor: 'white', padding: 10}}>
+//                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
+//                             <Text style={{ fontSize: 18, color: '#969494' }}>
+//                                 График работы
+//                             </Text>
+//                         </View>
+//                         <View>
+//                             <RadioForm
+//                                 radio_props={schedule_props}
+//                                 initial={props.gender}
+//                                 buttonColor={'#28a745'}
+//                                 onPress={(value) => {props.setValueSchedule(value)}}
+//                                 selectedButtonColor={'#28a745'}
+//                                 buttonSize={18}
+//                                 labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
+//                                 selectedLabelColor={'#28a745'}
+//                             />
+//                         </View>
+//                     </View>
+//                 </View>
+//             </View>
+//         )
+//     } else if (props.category.id == 168) {  //Resume
+//         var gender_props = [
+//             {label:'Не имееть значение', value: '' },
+//             {label: 'Мужской', value: 'male' },
+//             {label: 'Женский', value: 'female' }
+//         ]
+//         var schedule_props = radio_func(props.schedule)
+//         var work_experience_props = radio_func(props.workExperience)
+//         return (
+//             <View>
+//                 <View // Gender
+//                     style={{
+//                         backgroundColor: 'white', padding: 10
+//                     }}
+//                 >
+//                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
+//                         <Text style={{ fontSize: 18, color: '#969494' }}>
+//                             Пол
+//                         </Text>
+//                     </View>
+//                     <View>
+//                         <RadioForm
+//                             radio_props={gender_props}
+//                             initial={props.gender}
+//                             buttonColor={'#28a745'}
+//                             onPress={(value) => {props.setValueGender(value)}}
+//                             selectedButtonColor={'#28a745'}
+//                             buttonSize={18}
+//                             labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
+//                             selectedLabelColor={'#28a745'}
+//                         />
+//                     </View>
+//                 </View>
+
+
+//                 <View  // ageFrom
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueAgeFrom(text)}
+//                         placeholder='Возраст от'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.ageFrom}
+//                     />
+//                 </View>
 
 
 
-                <View style={{marginBottom:15}}>
-                    <View style={{ backgroundColor: 'white', padding: 10}}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
-                            <Text style={{ fontSize: 18, color: '#969494' }}>
-                                Опыть работы
-                            </Text>
-                        </View>
-                        <View>
-                            <RadioForm
-                                radio_props={work_experience_props}
-                                initial={props.gender}
-                                buttonColor={'#28a745'}
-                                onPress={(value) => {props.setValueWorkExperience(value)}}
-                                selectedButtonColor={'#28a745'}
-                                buttonSize={18}
-                                labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
-                                selectedLabelColor={'#28a745'}
-                            />
-                        </View>
-                    </View>
-                </View>
+//                 <View  // ageUp
+//                     style={{
+//                         marginBottom:10,
+//                         marginTop:10
+//                     }}
+//                 >
+//                     <Input
+//                         keyboardType="numeric"
+//                         onChangeText={(text) => props.setValueAgeUp(text)}
+//                         placeholder='Возраст до'
+//                         inputStyle={{ backgroundColor:'white', width: '100%', fontSize: 20 }}
+//                         inputContainerStyle={{ padding: 5, backgroundColor: 'white', margin: 0}}
+//                         defaultValue={props.ageUp}
+//                     />
+//                 </View>
 
 
-                <View style={{marginBottom:15}}>
-                    <View style={{ backgroundColor: 'white', padding: 10}}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
-                            <Text style={{ fontSize: 18, color: '#969494' }}>
-                                График работы
-                            </Text>
-                        </View>
-                        <View>
-                            <RadioForm
-                                radio_props={schedule_props}
-                                initial={props.gender}
-                                buttonColor={'#28a745'}
-                                onPress={(value) => {props.setValueSchedule(value)}}
-                                selectedButtonColor={'#28a745'}
-                                buttonSize={18}
-                                labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
-                                selectedLabelColor={'#28a745'}
-                            />
-                        </View>
-                    </View>
-                </View>
+
+//                 <View style={{marginBottom:15}}>
+//                     <View style={{ backgroundColor: 'white', padding: 10}}>
+//                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
+//                             <Text style={{ fontSize: 18, color: '#969494' }}>
+//                                 Опыть работы
+//                             </Text>
+//                         </View>
+//                         <View>
+//                             <RadioForm
+//                                 radio_props={work_experience_props}
+//                                 initial={props.gender}
+//                                 buttonColor={'#28a745'}
+//                                 onPress={(value) => {props.setValueWorkExperience(value)}}
+//                                 selectedButtonColor={'#28a745'}
+//                                 buttonSize={18}
+//                                 labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
+//                                 selectedLabelColor={'#28a745'}
+//                             />
+//                         </View>
+//                     </View>
+//                 </View>
 
 
-            </View>
-        )
-    } else if (props.category.id == 148 || props.category.id == 149
-        || props.category.id == 150 || props.category.id == 151) {
-        return (
-            <></>
-        )
-    } else {
-        return (
-            <></>
-        )
-    }
-}
+//                 <View style={{marginBottom:15}}>
+//                     <View style={{ backgroundColor: 'white', padding: 10}}>
+//                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom:10}}>
+//                             <Text style={{ fontSize: 18, color: '#969494' }}>
+//                                 График работы
+//                             </Text>
+//                         </View>
+//                         <View>
+//                             <RadioForm
+//                                 radio_props={schedule_props}
+//                                 initial={props.gender}
+//                                 buttonColor={'#28a745'}
+//                                 onPress={(value) => {props.setValueSchedule(value)}}
+//                                 selectedButtonColor={'#28a745'}
+//                                 buttonSize={18}
+//                                 labelStyle={{ fontSize:20, marginBottom: 10, marginTop:5 }}
+//                                 selectedLabelColor={'#28a745'}
+//                             />
+//                         </View>
+//                     </View>
+//                 </View>
+
+
+//             </View>
+//         )
+//     } else if (props.category.id == 148 || props.category.id == 149
+//         || props.category.id == 150 || props.category.id == 151) {
+//         return (
+//             <></>
+//         )
+//     } else {
+//         return (
+//             <></>
+//         )
+//     }
+// }
 
 
 
@@ -507,10 +542,16 @@ class AdFilterOptions extends React.Component {
             value_rent_buy: this.props.rentBuy,
 
             value_gear_shift: this.props.gearShift,
-            value_body_type: '',
+            value_body_type: this.props.bodyType,
             value_drive_unit: this.props.driveUnit,
             value_engine_type: this.props.engineType,
             value_mark: this.props.mark,
+            value_model: this.props.model,
+            yearIssueFrom: this.props.yearIssueFrom,
+            yearIssueUp: this.props.yearIssueUp,
+            mileageFrom: this.props.mileageFrom,
+            mileageUp: this.props.mileageUp,
+            condition: this.props.condition
         }
     }
 
@@ -666,8 +707,21 @@ class AdFilterOptions extends React.Component {
                             engineTypeGeneral = {this.props.engineTypeGeneral.data}
                             markGeneral = {this.props.markGeneral.data}
                             value_body_type = {this.state.value_body_type}
+                            yearIssueFrom = {this.state.yearIssueFrom}
+                            yearIssueUp = {this.state.yearIssueUp}
+                            mileageFrom = {this.state.mileageFrom}
+                            mileageUp = {this.state.mileageUp}
+                            condition = {this.state.condition}
 
                             setValueBodyType = {(value) => this.setState({value_body_type: value})}
+                            setValueMark = {(value) => this.setState({value_mark: value})}
+                            setValueModel = {(value) => this.setState({value_model: value})}
+                            setValueYearIssueFrom = {(text) => this.setState({yearIssueFrom: text})}
+                            setValueYearIssueUp = {(text) => this.setState({yearIssueUp: text})}
+                            setValueMileageFrom = {(text) => this.setState({mileageFrom: text})}
+                            setValueMileageUp = {(text) => this.setState({mileageUp: text})}
+                            setValueConditional = {(value) => this.setState({condition: value})}
+
                         />
                     </View>
 
@@ -758,6 +812,8 @@ class AdFilterOptions extends React.Component {
                             this.props.setTotalAreaFrom(this.state.totalAreaFrom)
                             this.props.setTotalAreaUp(this.state.totalAreaUp)
                             this.props.setNumberRooms(this.state.value_number_rooms)
+                        } else if (chooseCategory.id == 172) {
+                            this.props.setBodyType(this.state.bodyType)
                         }
                         this.props.setCurrentCategory(chooseCategory)
                         this.props.setCurrentRegion(chooseRegion)
@@ -844,6 +900,11 @@ const mapStateToProps = state => {
         driveUnit: state.extendedSearch.driveUnit,
         engineType: state.extendedSearch.engineType,
         mark: state.extendedSearch.mark,
+        yearIssueFrom: state.extendedSearch.yearIssueFrom,
+        yearIssueUp: state.extendedSearch.yearIssueUp,
+        mileageFrom: state.extendedSearch.mileageFrom,
+        mileageUp: state.extendedSearch.mileageUp,
+        condition: state.extendedSearch.condition,
     };
 };
 
@@ -877,6 +938,12 @@ const mapDispatchToProps = {
     setDriveUnit,
     setEngineType,
     setMark,
+    setModel,
+    setYearIssueFrom,
+    setYearIssueUp,
+    setMileageFrom,
+    setMileageUp,
+    setCondition,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(AdFilterOptions);

@@ -4,7 +4,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c64dd3c3-9fa7-4f77-a27a-ec2b57201fad" name="Default Changelist" comment="" />
+    <list default="true" id="c64dd3c3-9fa7-4f77-a27a-ec2b57201fad" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/modal/AdFilterOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/modal/AdFilterOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/ChooseAsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ChooseAsList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/ExtendedSearch/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/store/ExtendedSearch/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/ExtendedSearch/reducers.js" beforeDir="false" afterPath="$PROJECT_DIR$/store/ExtendedSearch/reducers.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +46,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -53,13 +58,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_5_API_28" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-01-06T16:28:22.897Z" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -276,7 +282,7 @@
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Assistant" order="4" weight="0.3353028" />
+      <window_info active="true" anchor="right" id="Assistant" order="4" visible="true" weight="0.33511207" />
     </layout>
   </component>
   <component name="masterDetails">

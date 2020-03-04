@@ -31,6 +31,12 @@ export const SET_BODY_TYPE = 'SET_BODY_TYPE'
 export const SET_DRIVE_UNIT = 'SET_DRIVE_UNIT'
 export const SET_ENGINE_TYPE = 'SET_ENGINE_TYPE'
 export const SET_MARK = 'SET_MARK'
+export const SET_MODEL = 'SET_MODEL'
+export const SET_YEAR_ISSUE_FROM = 'SET_YEAR_ISSUE_FROM'
+export const SET_YEAR_ISSUE_UP = 'SET_YEAR_ISSUE_UP'
+export const SET_MILEAGE_FROM = 'SET_MILEAGE_FROM'
+export const SET_MILEAGE_UP = 'SET_MILEAGE_UP'
+export const SET_CONDITION = 'SET_CONDITION'
 
 
 
@@ -185,6 +191,37 @@ export const setMark = (data) => ({
     type: SET_MARK,
     payload:data
 })
+
+export const setModel = (data) => ({
+    type: SET_MODEL,
+    payload:data
+})
+
+export const setYearIssueFrom = (data) => ({
+    type: SET_YEAR_ISSUE_FROM,
+    payload:data
+})
+
+export const setYearIssueUp = (data) => ({
+    type: SET_YEAR_ISSUE_UP,
+    payload: data
+})
+
+export const setMileageFrom = (data) => ({
+    type: SET_MILEAGE_FROM,
+    payload: data
+})
+
+export const setMileageUp = (data) => ({
+    type: SET_MILEAGE_UP,
+    payload: data
+})
+
+export const setCondition = (data) => ({
+    type: SET_CONDITION,
+    payload: data
+})
+
 
 
 export const getAds = (category, region, priceFrom, priceUp, order, adParam1, adParam2, adParam3, adParam4, adParam5, adParam6, adParam7, adParam8, adParam9) => {

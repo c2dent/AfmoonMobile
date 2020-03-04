@@ -3,10 +3,10 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 import FeaturedScreen from '../screens/FeaturedScreen'
-import ProfileScreen from '../screens/ProfileScreen'
 import AddAdScreen from '../screens/AddAdScreen'
 import MessageScreen from '../screens/MessageScreen'
 import SearchScreenNavigator from './SearchScreenNavigator'
+import ProfileScreenNavigator from './ProfileScreenNavigator'
 import { View, Container, Text } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -90,7 +90,7 @@ export default createAppContainer(
                 }
             },
             Profile: {
-                screen: ProfileScreen,
+                screen: ProfileScreenNavigator,
                 title: 'Профиль'
             },
         },
