@@ -4,7 +4,6 @@ import ActiveAds from './ActiveAds'
 import OldAds from './OldAds'
 import { View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Text } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import ProfileHeaderLeft from './ProfileHeaderLeft'
 
@@ -13,9 +12,15 @@ const ProfileAdNavigator = createMaterialTopTabNavigator(
     {
         activeAds: {
             screen: ({navigation}) => <ActiveAds screenProps={{rootNavigation: navigation}} />,
+            navigationOptions: {
+                tabBarLabel: 'Активные'
+            }
         },
         oldAds: {
             screen: ({navigation}) => <OldAds screenProps={{rootNavigation: navigation}} />,
+            navigationOptions: {
+                tabBarLabel: 'Завершенные'
+            }
         },
     },
     {

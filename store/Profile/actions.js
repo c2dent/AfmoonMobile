@@ -6,6 +6,9 @@ export const SET_PROFILE_ERROR = 'SET_PROFILE_ERROR'
 export const SET_USER_ADS = 'SET_USER_ADS'
 export const SET_USER_ADS_LOADING = 'SET_USER_ADS_LOADING'
 export const SET_USER_ADS_ERROR = 'SET_USER_ADS_ERROR'
+export const ADD_REMOVE_FAVORITE = 'ADD_REMOVE_FAVORITE'
+export const ADD_REMOVE_FAVORITE_LOADING = 'ADD_REMOVE_FAVORITE_LOADING'
+export const ADD_REMOVE_FAVORITE_LOADED = 'ADD_REMOVE_FAVORITE_LOADED'
 
 
 export const setProfile = (data) => ({
@@ -39,6 +42,16 @@ export const setUserAdsError = () => ({
     payload: ''
 })
 
+export const addRemoveFavoriteLoading = () => ({
+    type: ADD_REMOVE_FAVORITE_LOADING,
+    payload:''
+})
+
+
+export const addRemoveFavoriteLoaded = () => ({
+    type: ADD_REMOVE_FAVORITE_LOADED,
+    payload:''
+})
 
 
 export const setPhoneNumber = (phoneNumber) => {
@@ -69,6 +82,8 @@ export const getProfile = () => {
     }
 }
 
+
+
 export const getUserAds = () => {
     return (dispatch) => {
         dispatch(setUserAdsLoading())
@@ -80,5 +95,17 @@ export const getUserAds = () => {
                     dispatch(setUserAdsError())
                 }
             })
+    }
+}
+
+export const addRemoveFavorite = (id) => {
+    return (dispatch) => {
+        dispatch(addRemoveFavoriteLoading())
+        return axios.post('api/accounts/add-remove-favorite/', {
+            'product_id': id
+        }).then((response) => {
+            dispatch(addRemoveFavoriteLoaded())
+            return response
+        })
     }
 }

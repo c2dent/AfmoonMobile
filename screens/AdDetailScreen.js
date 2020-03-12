@@ -4,7 +4,8 @@ import { StyleSheet,
         Alert,
         Platform,
         Linking,
-        Image
+        Image,
+        ActivityIndicator
         } from 'react-native';
 import { ImageSliderAd } from '../component/ImageSliderAd'
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
@@ -68,14 +69,9 @@ export default class AdDetailScreen extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.props.getAd(this.props.region_slug, this.props.category_slug, this.props.slug)
-    }
-
     render () {
-        const { isLoading, isLoaded, ad } = this.props;
-        if (isLoading) return <Text>Пожалуюста подождите</Text>
-        if (!isLoaded || !ad) return null;
+        const { isLoading, ad } = this.props;
+        if (isLoading) return <View style={{ justifyContent: 'center', alignItems: 'center', flex:1 }}><ActivityIndicator size="small" color="#00ff00" /></View>
         if (!ad.data.images) { this.state.isHideSliderImage = false }
         return (
             <View style={ styles.adDetailWrap }>

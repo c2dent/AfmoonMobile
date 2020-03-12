@@ -46,15 +46,9 @@ class ActiveAds extends React.Component {
     }
 
 
-    static navigationOptions = {
-        tabBarLabel: 'Активные',
-    }
-
-
     render() {
         if (this.props.userAdsLoading) return <ActivityIndicator size="small" color="#00ff00" />
         let ads = this.userAdsActive(this.props.userAds.ad, true)
-        console.log(this.props.userAds)
         return (
             <View style={{ marginLeft:10, marginRight:10, marginTop:5 }}>
                 <FlatList

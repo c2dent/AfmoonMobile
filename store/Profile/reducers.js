@@ -5,6 +5,8 @@ import {
     SET_USER_ADS,
     SET_USER_ADS_ERROR,
     SET_USER_ADS_LOADING,
+    ADD_REMOVE_FAVORITE_LOADED,
+    ADD_REMOVE_FAVORITE_LOADING,
 } from './actions'
 
 const defaultState = {
@@ -15,6 +17,7 @@ const defaultState = {
     userAds: {},
     userAdsLoading: false,
     userAdsError: false,
+    addRemoveFavorite: false,
 }
 
 export const profileReducer = (state=defaultState, action) => {
@@ -54,6 +57,16 @@ export const profileReducer = (state=defaultState, action) => {
             return {
                 ...state,
                 userAdsLoading: true
+            }
+        case ADD_REMOVE_FAVORITE_LOADING:
+            return {
+                ...state,
+                addRemoveFavorite: true
+            }
+        case ADD_REMOVE_FAVORITE_LOADED:
+            return {
+                ...state,
+                addRemoveFavorite: false
             }
     }
 

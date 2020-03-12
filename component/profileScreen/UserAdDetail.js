@@ -72,7 +72,11 @@ class UserAdDetail extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getAd(this.props.region_slug, this.props.category_slug, this.props.slug)
+        this.props.getAd(
+            this.props.navigation.getParam('region_slug', 'Not Working'),
+            this.props.navigation.getParam('category_slug', 'Not Working'),
+            this.props.navigation.getParam('slug', 'Not Working'),
+        )
     }
 
     render () {
@@ -229,6 +233,9 @@ class UserAdDetail extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        ad: state.adDetail.ad,
+        isLoading: state.adDetail.isLoading,
+        isLoaded: state.adDetail.isLoaded
     };
 };
 

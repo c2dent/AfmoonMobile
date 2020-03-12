@@ -4,8 +4,7 @@ import {
 } from './actions'
 
 const defaultState = {
-    isLoading: false,
-    isLoaded: false,
+    isLoading: true,
     ad : ''
 }
 
@@ -19,9 +18,8 @@ export const adDetailReducer = (state=defaultState, action) => {
         case GET_AD_DETAIL_SUCCESS:
             return {
                 ...state,
+                ad: action.payload,
                 isLoading: false,
-                isLoaded: true,
-                ad: action.payload
             }
     }
 

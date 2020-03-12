@@ -2,13 +2,13 @@ import React from 'react'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
-import FeaturedScreen from '../screens/FeaturedScreen'
 import AddAdScreen from '../screens/AddAdScreen'
 import MessageScreen from '../screens/MessageScreen'
 import SearchScreenNavigator from './SearchScreenNavigator'
 import ProfileScreenNavigator from './ProfileScreenNavigator'
 import { View, Container, Text } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
+import FavoriteAdDetailNavigator from './FavoriteAdDetailNavigator'
 
 
 class IconWithBadge extends React.Component {
@@ -72,7 +72,7 @@ export default createAppContainer(
                 }
              },
             Featured: {
-                screen: FeaturedScreen,
+                screen: FavoriteAdDetailNavigator,
                 navigationOptions: {
                     title: 'Избранный'
                 }

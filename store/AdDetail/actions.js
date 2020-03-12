@@ -16,7 +16,20 @@ export const setAdLoad = () => ({
 export const getAd = (region, category, slug) => {
     return (dispatch) => {
         dispatch(setAdLoad())
-        return axios.get('api/' + region + '/' + category + '/' + slug)
+        return axios.get('api/' + region + '/' + category + '/' + slug + '/')
+            .then(response => {
+                dispatch(setAdSucces(response.data))
+            })
+            .catch(error => {
+                throw error;
+            })
+    }
+}
+
+
+export const uploadAd = (region, category, slug) => {
+    return (dispatch) => {
+        return axios.get('api/' + region + '/' + category + '/' + slug + '/')
             .then(response => {
                 dispatch(setAdSucces(response.data))
             })

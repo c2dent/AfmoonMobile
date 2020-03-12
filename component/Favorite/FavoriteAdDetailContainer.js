@@ -1,8 +1,8 @@
 import React from 'react'
-import AdDetailScreen from '../screens/AdDetailScreen'
+import AdDetailScreen from '../../screens/AdDetailScreen'
 import { connect } from 'react-redux';
-import { uploadAd, getAd } from '../store/AdDetail/actions'
-import { addRemoveFavorite } from '../store/Profile/actions'
+import { uploadFavoriteAd, getFavoriteAd } from '../../store/FavoriteAds/actions'
+import { addRemoveFavorite } from '../../store/Profile/actions'
 import { View } from 'native-base';
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -47,8 +47,8 @@ class IconFeatured extends React.Component {
                             this.props.addRemoveFavorite(this.props.product_id)
                                 .then((response) => {
                                     if ( response.status == 200) {
-                                        Vibration.vibrate()
-                                        this.props.uploadAd(this.props.region_slug, this.props.category_slug, this.props.slug)
+                                        Vibration.vibrate(PATTERN)
+                                        this.props.uploadFavoriteAd(this.props.region_slug, this.props.category_slug, this.props.slug)
                                             .then(() => this.props.uploadIcon())
                                         this.setState({ disabledAddRemoveButton: false })
                                     } else {
@@ -70,7 +70,7 @@ class IconFeatured extends React.Component {
 }
 
 
-class AdDetailContainer extends React.Component {
+class FavoriteAdDetailContainer extends React.Component {
 
     constructor(props) {
         super(props)
@@ -82,18 +82,18 @@ class AdDetailContainer extends React.Component {
     }
 
     uploadIcon = () => {
-        this.props.navigation.setParams({favorite: this.props.ad.data.favorite_for})
+        this.props.navigation.setParams({favorite: this.props.favoriteAd.data.favorite_for})
     }
 
     componentDidMount () {
         const { navigation } = this.props
-        this.props.getAd(navigation.getParam('region_slug'), navigation.getParam('category_slug'), navigation.getParam('slug'))
+        this.props.getFavoriteAd(navigation.getParam('region_slug'), navigation.getParam('category_slug'), navigation.getParam('slug'))
             .then(() => {
-                this.props.navigation.setParams({favorite: this.props.ad.data.favorite_for})
-                this.props.navigation.setParams({product_id: this.props.ad.data.id})
+                this.props.navigation.setParams({favorite: this.props.favoriteAd.data.favorite_for})
+                this.props.navigation.setParams({product_id: this.props.favoriteAd.data.id})
                 this.props.navigation.setParams({addRemoveFavorite: this.props.addRemoveFavorite})
                 this.props.navigation.setParams({uploadIcon: this.uploadIcon})
-                this.props.navigation.setParams({uploadAd: this.props.uploadAd})
+                this.props.navigation.setParams({uploadFavoriteAd: this.props.uploadFavoriteAd})
             })
     }
 
@@ -104,7 +104,7 @@ class AdDetailContainer extends React.Component {
                     <IconFeatured favorite={navigation.state.params.favorite}
                         addRemoveFavorite={navigation.state.params.addRemoveFavorite}
                         product_id={navigation.state.params.product_id}
-                        uploadAd={navigation.state.params.uploadAd}
+                        uploadFavoriteAd={navigation.state.params.uploadFavoriteAd}
                         slug={navigation.getParam('slug')}
                         region_slug={navigation.getParam('region_slug')}
                         category_slug={navigation.getParam('category_slug')}
@@ -128,9 +128,9 @@ class AdDetailContainer extends React.Component {
                 slug={navigation.getParam('slug')}
                 region_slug={navigation.getParam('region_slug')}
                 category_slug={navigation.getParam('category_slug')}
-                ad={this.props.ad}
-                isLoading={this.props.isLoading}
-                getAd={this.props.getAd}
+                ad={this.props.favoriteAd}
+                isLoading={this.props.isFavoriteLoading}
+                getAd={this.props.getFavoriteAd}
             />
         )
     }
@@ -138,13 +138,13 @@ class AdDetailContainer extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        ad: state.adDetail.ad,
-        isLoading: state.adDetail.isLoading,
+        favoriteAd: state.favoriteAds.favoriteAd,
+        isFavoriteLoading: state.favoriteAds.isFavoriteLoading,
     }
 }
 
 const mapDispatchToProps = {
-    uploadAd, addRemoveFavorite, getAd
+    uploadFavoriteAd, addRemoveFavorite, getFavoriteAd
 }
- 
-export default connect(mapStateToProps, mapDispatchToProps)(AdDetailContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteAdDetailContainer);

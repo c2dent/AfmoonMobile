@@ -39,10 +39,6 @@ class OldAds extends React.Component {
             })
     }
 
-    static navigationOptions = {
-        tabBarLabel: 'Завершенные',
-    }
-
 
     render() {
         if (this.props.userAdsLoading) return <ActivityIndicator size="small" color="#00ff00" />
@@ -53,7 +49,7 @@ class OldAds extends React.Component {
                     data={ads}
                     renderItem={({ item }) => (
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('AdDetail', {
+                            onPress={() => this.props.screenProps.rootNavigation.navigate('userAdDetail', {
                                 slug: item.slug,
                                 region_slug: item.region_slug,
                                 category_slug: item.category_slug
