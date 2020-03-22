@@ -78,10 +78,11 @@ export default class AdDetailScreen extends React.Component {
                 <ScrollView>
                     <View>
 
-                        {this.state.isHideSliderImage == true?
-                            <View style={styles.wrapImageSlide} hidden={this.state.isHideSliderImage} >
-                                <ImageSliderAd images={ad.data.images} />
-                            </View>:<></>
+                        {
+                            this.state.isHideSliderImage == true?
+                                <View style={styles.wrapImageSlide} hidden={this.state.isHideSliderImage} >
+                                    <ImageSliderAd images={ad.data.images} />
+                                </View>:<></>
                         }
                         <View
                             style={{

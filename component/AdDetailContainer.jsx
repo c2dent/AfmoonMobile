@@ -146,5 +146,5 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     uploadAd, addRemoveFavorite, getAd
 }
- 
+
 export default connect(mapStateToProps, mapDispatchToProps)(AdDetailContainer);

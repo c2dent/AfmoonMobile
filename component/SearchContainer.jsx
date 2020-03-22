@@ -20,7 +20,7 @@ import {
         getMark,
         setIsAuth,
     } from '../store/General/actions'
-
+import { getProfile } from '../store/Profile/actions'
 
 class SearchContainer extends React.Component {
     constructor (props){
@@ -31,7 +31,8 @@ class SearchContainer extends React.Component {
         AsyncStorage.getItem('token').then((token) => {
             if (token) {
                 this.props.setIsAuth()
-            }
+                this.props.getProfile()
+        }
         })
     }
 
@@ -105,6 +106,7 @@ const mapDispatchToProps = {
     getEngineType,
     getMark,
     setIsAuth,
+    getProfile,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

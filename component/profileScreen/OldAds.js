@@ -18,6 +18,10 @@ class OldAds extends React.Component {
         this.userAdsActive = this.userAdsActive.bind(this)
     }
 
+    componentDidMount() {
+        this.props.getUserAds()
+    }
+
     userAdsActive = (userAds, returnState) => {
         let ads = []
         if (userAds) {

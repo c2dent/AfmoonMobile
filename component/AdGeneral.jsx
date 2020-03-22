@@ -4,7 +4,6 @@ import { StyleSheet, Image } from 'react-native';
 import Moment from 'moment'
 import moment from 'moment'
 import { Ionicons } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -37,13 +36,23 @@ const AdGeneral = (data) => {
         <View style={styles.wrapAdGeneral}>
             <View style={ styles.leftItem }>
                 <IconFeatured />
-                <Image
-                    style={{ height:120, width: 151,}}
-                    source={{uri: 'http://192.168.1.6:8000' + data.image}}
-                    resizeMode = "cover"
-                    borderTopLeftRadius={5}
-                    borderBottomLeftRadius={5}
-                />
+                {
+                    data.image.length > 0 ?
+                    <Image
+                        style={{ height:120, width: 151,}}
+                        source={{uri: 'http://192.168.1.6:8000' + data.image[0].image}}
+                        resizeMode = "cover"
+                        borderTopLeftRadius={5}
+                        borderBottomLeftRadius={5}
+                    /> :
+                    <Image
+                        style={{ height:120, width: 151,}}
+                        source={require('../static/images/img.png')}
+                        resizeMode = "cover"
+                        borderTopLeftRadius={5}
+                        borderBottomLeftRadius={5}
+                    />
+                }
             </View>
             <View style={ styles.rightItem }>
                 <View style={ styles.adGeneralInfo }>

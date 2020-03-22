@@ -3,7 +3,6 @@ import { View, Text } from 'native-base'
 import { StyleSheet,
         Alert,
         Platform,
-        Linking,
         Image,
         ActivityIndicator
         } from 'react-native';
@@ -13,10 +12,8 @@ import { Button } from 'react-native-elements'
 import Moment from 'moment'
 import ChoiceAdditionalInfoForAd from '../ChoiceAdditionalInfoForAd'
 import AdAdditonalInfo from '../AdAdditonalInfo'
-import { getAd } from '../../store/AdDetail/actions'
+import { getUserAd } from '../../store/Profile/actions'
 import { connect } from 'react-redux'
-
-
 
 
 const AvatarWithoutPic = (props) => {
@@ -72,7 +69,7 @@ class UserAdDetail extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getAd(
+        this.props.getUserAd(
             this.props.navigation.getParam('region_slug', 'Not Working'),
             this.props.navigation.getParam('category_slug', 'Not Working'),
             this.props.navigation.getParam('slug', 'Not Working'),
@@ -80,19 +77,19 @@ class UserAdDetail extends React.Component {
     }
 
     render () {
-        const { isLoading, isLoaded, ad } = this.props;
-        if (isLoading) return <ActivityIndicator size="small" color="#00ff00" />
-        if (!isLoaded || !ad) return null;
-        if (!ad.data.images) { this.state.isHideSliderImage = false }
+        const { UserAdDetailLoad, UserAdDetail } = this.props;
+        if (UserAdDetailLoad) return <ActivityIndicator size="small" color="#00ff00" />
+        if (!UserAdDetail.data.images) { this.state.isHideSliderImage = false }
         return (
             <View style={ styles.adDetailWrap }>
                 <ScrollView>
                     <View>
 
-                        {this.state.isHideSliderImage == true?
-                            <View style={styles.wrapImageSlide} hidden={this.state.isHideSliderImage} >
-                                <ImageSliderAd images={ad.data.images} />
-                            </View>:<></>
+                        {
+                            this.state.isHideSliderImage == true?
+                                <View style={styles.wrapImageSlide} hidden={this.state.isHideSliderImage} >
+                                    <ImageSliderAd images={UserAdDetail.data.images} />
+                                </View>:<></>
                         }
                         <View
                             style={{
@@ -100,79 +97,62 @@ class UserAdDetail extends React.Component {
                             }}
                         >
                             <Text style={styles.title}>
-                                { ad.data.title }
+                                { UserAdDetail.data.title }
                             </Text>
                             <Text style={styles.price}>
-                                { ad.data.price } M
+                                { UserAdDetail.data.price } M
                             </Text>
                         </View>
 
 
-
-
-                        <View style={styles.wrapButtonCallChat}>
-                            <View style={{flex:1, marginRight:5}}>
-                                <Button
-                                    title='Позвонить'
-                                    onPress={() => {
-                                        let phoneNumber = ''
-
-                                        if (Platform.OS === 'android') {
-                                            phoneNumber = 'tel:${' + ad.data.user_phone + '}'
-                                        } else {
-                                            phoneNumber = 'telprompt:${' + ad.data.user_phone + '}'
-                                        }
-
-                                        Linking.openURL(phoneNumber)
-                                    }}
-                                    icon={{ name: 'call', color:'white'}}
-                                    buttonStyle={{
-                                        backgroundColor: '#28a745',
-                                        borderRadius:5,
-                                        width: '100%'
-                                    }}
-                                />
-                            </View>
-
-
-
-                            <View style={{ flex:1, marginLeft:5}}>
-                                <Button
-                                    title='Написать'
-                                    onPress={() => Alert('dfs')}
-                                    icon={{name: 'chat', color: 'white'}}
-                                    buttonStyle= {{
-                                        backgroundColor: '#28a745',
-                                        borderRadius: 5,
-                                        width: '100%',
-                                    }}
-                                />
-                            </View>
-                        </View>
-
+                        {
+                            UserAdDetail.data.is_active ?
+                                <View style={{ flex:1, marginLeft:10, marginRight:10 }}>
+                                    <Button
+                                        title='Снять с публикации'
+                                        onPress={() => Alert('dfs')}
+                                        buttonStyle= {{
+                                            backgroundColor: '#28a745',
+                                            borderRadius: 5,
+                                            width: '100%',
+                                        }}
+                                    />
+                                </View> :
+                                <View style={{ flex:1, marginLeft:10, marginRight:10 }}>
+                                    <Button
+                                        title='Активировать'
+                                        onPress={() => Alert('dfs')}
+                                        buttonStyle= {{
+                                            backgroundColor: '#28a745',
+                                            borderRadius: 5,
+                                            width: '100%',
+                                        }}
+                                    />
+                                </View>
+                        }
 
 
                         <View
                             style={{ display:'flex', flexDirection:'column', margin:10,}}
                         >
-                            <AdAdditonalInfo titleInfo="Просмотры" valueInfo={ad.data.views} />
-                            <AdAdditonalInfo titleInfo="Размешение" valueInfo={Moment(ad.data.add_date).format('MMMM D, H:mm')} />
-                            <AdAdditonalInfo titleInfo="Место" valueInfo={ad.data.region_title} />
-                            <AdAdditonalInfo titleInfo="Категория" valueInfo={ad.data.category_title} />
+                            <AdAdditonalInfo titleInfo="Просмотры" valueInfo={UserAdDetail.data.views} />
+                            <AdAdditonalInfo titleInfo="Размешение" valueInfo={Moment(UserAdDetail.data.add_date).format('MMMM D, H:mm')} />
+                            <AdAdditonalInfo titleInfo="Место" valueInfo={UserAdDetail.data.region_title} />
+                            <AdAdditonalInfo titleInfo="Категория" valueInfo={UserAdDetail.data.category_title} />
                         </View>
 
 
 
 
                         <View style={{ margin: 10 }}>
-                            <ChoiceAdditionalInfoForAd ad={ad.data} />
+                            <ChoiceAdditionalInfoForAd ad={UserAdDetail.data} />
                         </View>
 
 
                         <View style={{ margin:10, borderBottomWidth: 0.3, borderBottomColor:'#bcb7b7', paddingBottom:25 }}>
                             <Text style={{ fontSize:25 }}>Описания</Text>
                             <Text></Text>
-                            <Text>{ad.data.description}</Text>
+                            <Text>{UserAdDetail.data.description}</Text>
                         </View>
 
 
@@ -193,14 +173,14 @@ class UserAdDetail extends React.Component {
                                     }}
                                 >
                                     <View style={{ flex:6 }}>
-                                        <Text>{ ad.data.user_nickname}</Text>
-                                        <Text>{Moment(ad.data.user_register_date).format('MMMM DD YYYY')}</Text>
+                                        <Text>{ UserAdDetail.data.user_nickname}</Text>
+                                        <Text>{Moment(UserAdDetail.data.user_register_date).format('MMMM DD YYYY')}</Text>
                                     </View>
                                     <View style={{ flex:2, justifyContent:'center', alignItems:'center' }}>
                                         {
-                                            ad.data.user_avatar == true?
-                                                <AvatarWithPic avatar={ad.data.user_avatar} />:
-                                                <AvatarWithoutPic nickname={ad.data.user_nickname} />
+                                            UserAdDetail.data.user_avatar == true?
+                                                <AvatarWithPic avatar={UserAdDetail.data.user_avatar} />:
+                                                <AvatarWithoutPic nickname={UserAdDetail.data.user_nickname} />
                                         }
                                     </View>
                                 </View>
@@ -233,14 +213,13 @@ class UserAdDetail extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        ad: state.adDetail.ad,
-        isLoading: state.adDetail.isLoading,
-        isLoaded: state.adDetail.isLoaded
+        UserAdDetail: state.profile.UserAdDetail,
+        UserAdDetailLoad: state.profile.UserAdDetailLoad,
     };
 };
 
 const mapDispatchToProps = {
-    getAd
+    getUserAd
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(UserAdDetail);

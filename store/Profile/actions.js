@@ -9,6 +9,20 @@ export const SET_USER_ADS_ERROR = 'SET_USER_ADS_ERROR'
 export const ADD_REMOVE_FAVORITE = 'ADD_REMOVE_FAVORITE'
 export const ADD_REMOVE_FAVORITE_LOADING = 'ADD_REMOVE_FAVORITE_LOADING'
 export const ADD_REMOVE_FAVORITE_LOADED = 'ADD_REMOVE_FAVORITE_LOADED'
+export const GET_USER_AD_DETAIL = 'GET_USER_AD_DETAIL'
+export const GET_USER_AD_DETAIL_ERROR = 'GET_USER_AD_DETAIL_ERROR'
+
+
+export const setUserAdDetailError = () => ({
+    type: GET_USER_AD_DETAIL_ERROR,
+    payload: ''
+})
+
+
+export const setUserAdDetail = (data) => ({
+    type: GET_USER_AD_DETAIL,
+    payload: {data}
+})
 
 
 export const setProfile = (data) => ({
@@ -107,5 +121,31 @@ export const addRemoveFavorite = (id) => {
             dispatch(addRemoveFavoriteLoaded())
             return response
         })
+    }
+}
+
+
+export const ActivateDisableAd = (slug) => {
+    return (dispatch) => {
+        return axios.put('edit-ad/active/' + slug + '/')
+            .then((response) => {
+                return response
+            })
+    }
+}
+
+export const getUserAd = (region, category, slug) => {
+    return (dispatch) => {
+        return axios.get('api/' + region + '/' + category + '/' + slug + '/')
+            .then(response => {
+                if (response.status == 200) {
+                    dispatch(setUserAdDetail(response.data))
+                } else {
+                    dispatch(setUserAdDetailError())
+                }
+            })
+            .catch(error => {
+                throw error;
+            })
     }
 }

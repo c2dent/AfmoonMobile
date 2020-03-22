@@ -2,10 +2,10 @@ import React from 'react'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
-import AddAdScreen from '../screens/AddAdScreen'
 import MessageScreen from '../screens/MessageScreen'
 import SearchScreenNavigator from './SearchScreenNavigator'
 import ProfileScreenNavigator from './ProfileScreenNavigator'
+import AddItemNavigator from './AddItemNavigator'
 import { View, Container, Text } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 import FavoriteAdDetailNavigator from './FavoriteAdDetailNavigator'
@@ -78,7 +78,7 @@ export default createAppContainer(
                 }
             },
             AddAd: {
-                screen: AddAdScreen,
+                screen: AddItemNavigator,
                 navigationOptions: {
                     title: 'Добавит'
                 }
