@@ -9,6 +9,8 @@ import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { addNewItem } from '../../../store/AddItem/actions'
+import ViewPhoneNumber from '../FormCustomItem/ViewPhoneNumber'
+import ChooseRegionList from '../FormCustomItem/ChooseRegionList'
 
 
 
@@ -28,24 +30,12 @@ class SimpleForm extends React.Component{
             validationPrice: false,
             validationImages: false,
             validationRegion: false,
-            colorRegion: '#969494',
             publishButtonLoading: false,
         }
-        this.RegionList = this.RegionList.bind(this)
-        this.validation = this.validation.bind(this)
+        this.Validation = this.Validation.bind(this)
         this.validImage = this.validImage.bind(this)
     }
 
-
-    RegionList = () => {
-        let regions =[]
-        this.props.regions.map((region) => {
-            if (region.lft + 1 == region.rght) {
-                regions.push(region)
-            }
-        })
-        return regions
-    }
 
 
     static navigationOptions = ({ navigation }) => {
@@ -82,8 +72,7 @@ class SimpleForm extends React.Component{
     }
 
 
-    validation = () => {
-        this.setState({ publishButtonLoading: true})
+    Validation = () => {
         let images = this.validImage()
         if (!this.state.title) {
             this.refs.titleInput.emptyInput()
@@ -101,12 +90,13 @@ class SimpleForm extends React.Component{
             this.setState({ validationImages: true })
         }
         if (!this.state.region) {
-            this.setState({ colorRegion: 'red'})
+            this.refs.chooseRegion.emptyRegion()
         } else {
             this.setState({ validationRegion: true })
         }
 
         if (this.state.validationTitle && this.state.validationPrice && this.state.validationImages && this.state.validationRegion) {
+            this.setState({ publishButtonLoading: true})
             const data = new FormData();
             data.append('title', this.state.title)
             data.append('price', this.state.price)
@@ -114,7 +104,6 @@ class SimpleForm extends React.Component{
             data.append('category' ,this.props.navigation.getParam('category').id)
             data.append('region', this.state.region.id)
             data.append('user', this.props.profile.id)
-            data.append('size', '5')
             this.state.images.forEach((image, index) => {
                 data.append('images[]', {
                     uri: image,
@@ -124,9 +113,9 @@ class SimpleForm extends React.Component{
             })
             this.props.addNewItem(data)
                 .then((response) => {
+                    this.setState({ publishButtonLoading: false })
                     if (response.status == 201) {
-                        this.setState({ publishButtonLoading: false })
-                        this.navigation.navigate('addItem')
+                        this.props.navigation.navigate('addItem')
                     } else {
                         alert('Извините что-то пошло не так повторите попытку позже')
                     }
@@ -185,66 +174,18 @@ class SimpleForm extends React.Component{
                 </View>
 
 
-                <View
-                    style={{
-                        backgroundColor: 'white',
-                        marginTop:30,
-                        padding:10
-                    }}
-                >
-                    <TouchableOpacity
-                        style={{display:'flex', justifyContent:'space-between', alignItems:'center', flexDirection: 'row'}}
-                        onPress={() => this.props.navigation.navigate('chooseItem', {
-                            itemList: this.RegionList(),
-                            setRegion: (region) => this.setState({ region: region}),
-                            defaultValue: this.state.region
-                        })}
-                    >
-                        <View
-                            style={{display:'flex', justifyContent:'flex-start', alignItems:'center' , flexDirection: 'row'}}
-                        >
-                            <Ionicons name={'ios-locate'} size={23} color={'black'} />
-                            <Text
-                                style={{
-                                    fontSize:20,
-                                    color:'#969494',
-                                    marginLeft:5,
-                                }}
-                            >
-                                {
-                                    this.state.region ?
-                                        <Text style={{fontSize:20, color:'black', marginLeft:5}}>{ this.state.region.title }</Text> :
-                                        <Text style={{fontSize:20, color:this.state.colorRegion , marginLeft:5}}>Место встречи</Text>
-                                }
-
-                            </Text>
-                        </View>
-                        <Ionicons name={'ios-arrow-forward'} size={20} color={'black'} style={{ marginRight:5 }} />
-                    </TouchableOpacity>
+                <View>
+                    <ChooseRegionList
+                        defaultValue={ this.state.region}
+                        regions={ this.props.regions }
+                        navigation={ this.props.navigation}
+                        setRegion={ (region) => this.setState({ region: region })}
+                        ref="chooseRegion"
+                    />
                 </View>
 
-
                 <View>
-                    <View
-                        style={{
-                            backgroundColor: 'white',
-                            marginTop:15,
-                            paddingLeft:10,
-                            paddingBottom:5,
-                            paddingTop:5,
-                        }}
-                    >
-                        <Text
-                            style={{ color:'#969494', fontSize: 14}}
-                        >
-                            Номер телефона
-                        </Text>
-                        <Text style={{ fontSize: 21 }}>
-                            {
-                                this.props.profile.phone_number
-                            }
-                        </Text>
-                    </View>
+                    <ViewPhoneNumber phone_number={ this.props.profile.phone_number } />
                 </View>
 
 
@@ -257,10 +198,8 @@ class SimpleForm extends React.Component{
                     }}
                 >
                     <Button
+                        onPress={() => this.Validation()}
                         title='Опубликовать'
-                        onPress={() => {
-                            this.validation()
-                        }}
                         buttonStyle= {{
                             backgroundColor: '#28a745',
                             borderRadius: 5,

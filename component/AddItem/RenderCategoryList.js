@@ -7,6 +7,10 @@ class RenderCategoryList extends React.Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            fromScreen: 'sdf'
+        }
+
         this.ChoosenCategory = this.ChoosenCategory.bind(this)
     }
 
@@ -18,9 +22,13 @@ class RenderCategoryList extends React.Component {
                 lft: this.props.category.lft
             })
         } else {
-            this.props.navigation.navigate('simpleForm', {
-                category: this.props.category
-            })
+            switch (this.props.category.id) {
+                case 172:
+                    this.props.navigation.navigate('avtomobileForm', {category: this.props.category})
+                    break;
+                default:
+                    this.props.navigation.navigate('simpleForm', {category: this.props.category})
+            }
         }
     }
 

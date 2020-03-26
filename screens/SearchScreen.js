@@ -6,7 +6,6 @@ import { Button } from 'react-native-elements'
 
 
 
-
 export default class SearchScreen extends Component
 {
     constructor(props){
@@ -48,7 +47,7 @@ export default class SearchScreen extends Component
         return (
                 <SafeAreaView style={{ marginLeft: 10, marginRight:10, marginTop:5 }}>
                     <TouchableHighlight
-                        style={{ margin:5 }}
+                        style={{ margin:5}}
                         onPress={() =>
                             {
                                 this.props.navigation.navigate('Category', {

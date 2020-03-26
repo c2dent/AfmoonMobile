@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 
 
 
-class RenderChooseItem extends React.Component {
+class RenderSelectItem extends React.Component {
     constructor(props) {
         super(props)
 
@@ -36,8 +36,9 @@ class RenderChooseItem extends React.Component {
 
     render() {
         const items = this.props.navigation.getParam('itemList')
-        const setRegion = this.props.navigation.getParam('setRegion')
+        const setItem = this.props.navigation.getParam('setItem')
         const defaultVaule = this.props.navigation.getParam('defaultValue')
+        const renderIndex = this.props.navigation.getParam('renderIndex')
         return (
             <View>
                 <ScrollView>
@@ -53,14 +54,14 @@ class RenderChooseItem extends React.Component {
                                     paddingTop:10,
                                 }}
                                 onPress={ () => {
-                                    setRegion(item)
+                                    setItem(item)
                                     this.props.navigation.goBack()
                                 }}
                             >
                                 {
-                                    item.title == defaultVaule.title ?
-                                        <Text style={{ fontSize:20, color:"#28a745" }}>{ item.title}</Text> :
-                                        <Text style={{ fontSize:20 }}>{ item.title}</Text>
+                                    item == defaultVaule ?
+                                        <Text style={{ fontSize:20, color:"#28a745" }}>{ item[renderIndex]}</Text> :
+                                        <Text style={{ fontSize:20 }}>{ item[renderIndex]}</Text>
                                 }
                             </TouchableOpacity>
                         ))
@@ -71,4 +72,4 @@ class RenderChooseItem extends React.Component {
     }
 }
 
-export default RenderChooseItem;
+export default RenderSelectItem;

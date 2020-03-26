@@ -118,7 +118,7 @@ class ExtendedSearchScreen extends React.Component {
                             })}>
                             <AdGeneral
                                 title={item.title}
-                                image={item.image}
+                                image={item.images}
                                 price={item.price}
                                 add_date = {item.add_date}
                                 slug={item.slug}
