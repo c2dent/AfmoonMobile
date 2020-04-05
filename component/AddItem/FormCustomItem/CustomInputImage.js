@@ -14,7 +14,7 @@ class ImgItem  extends React.Component{
         super(props)
 
         this.state ={
-            uri: '',
+            uri: this.props.uri,
 
         }
 
@@ -80,13 +80,12 @@ class CustomInputImage extends React.Component{
         super(props)
 
         this.state = {
-            imgUris : []
+            imgUris : this.props.defaultValue
         }
     }
 
 
     render() {
-        let imgArrayUri = []
         let imgArray = []
         for (let i=0; i<11; i++) {
             imgArray.push(
@@ -97,7 +96,7 @@ class CustomInputImage extends React.Component{
                     }}
                 >
                     <ImgItem
-                        uri={imgArrayUri[i]}
+                        uri={this.state.imgUris[i]}
                         uriIndex={i}
                         setImgUri={(uri,i) => {
                             this.setState(state => {

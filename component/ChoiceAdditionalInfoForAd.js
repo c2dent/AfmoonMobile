@@ -12,7 +12,7 @@ export default ChoiceAdditionalInfoForAd = (props) => {
                 <AdAdditonalInfo titleInfo="Этаж" valueInfo={props.ad.floor} />
                 <AdAdditonalInfo titleInfo="Общая площадь" valueInfo={props.ad.total_area} />
                 <AdAdditonalInfo titleInfo="Комнаты в квартире" valueInfo={props.ad.number_rooms} />
-                <AdAdditonalInfo titleInfo="Тип продажи" valueInfo={props.ad.rent_buy ? "Купить" : "Снять"} />
+                <AdAdditonalInfo titleInfo="Тип продажи" valueInfo={props.ad.rent_buy ? "Продается" : "Сдается"} />
             </View>
         )
     } else if (props.ad.category == 172) {

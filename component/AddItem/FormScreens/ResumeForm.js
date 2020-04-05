@@ -10,30 +10,43 @@ import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { addNewItem } from '../../../store/AddItem/actions'
 import ViewPhoneNumber from '../FormCustomItem/ViewPhoneNumber'
+import RenderForSelectItem from '../RenderForSelectItem'
 import ChooseRegionList from '../FormCustomItem/ChooseRegionList'
 
 
 
 
-class SimpleForm extends React.Component{
+class ResumeForm extends React.Component{
     constructor(props){
         super(props)
 
         this.state = {
-            title: '',
+            title:'',
             price: '',
             description:'',
             region: '',
             category:'',
+            schedule:'',
+            workExperience:'',
+            gender:'',
+            age:'',
             images: [],
-            validationTitle: false,
-            validationPrice: false,
-            validationImages: false,
-            validationRegion: false,
+            validPrice: false,
+            validSchedule: false,
+            validWorkExperience: false,
+            validTitle: false,
+            validRegion: false,
+            validGender: false,
+            validAge: false,
             publishButtonLoading: false,
+            genderList: [
+                [1, 'Мужской'],
+                [2, 'Женский'],
+            ]
         }
         this.Validation = this.Validation.bind(this)
         this.validImage = this.validImage.bind(this)
+        this.generateArray = this.generateArray.bind(this)
     }
 
 
@@ -59,6 +72,9 @@ class SimpleForm extends React.Component{
         }
     }
 
+
+    generateArray = (n) => [...Array(n)].map((_, index) => [index + 16]);
+
     validImage = () => {
         let imgs =[]
 
@@ -73,31 +89,33 @@ class SimpleForm extends React.Component{
 
 
     Validation = () => {
-        let images = this.validImage()
-        if (!this.state.title) {
-            this.setState({ validationTitle: false})
-            this.refs.titleInput.emptyInput()
-        } else {
-            this.setState({ validationTitle: true})
-        }
         if (!this.state.price) {
-            this.setState({ validationPrice: false })
+            this.setState({ validPrice: false })
             this.refs.priceInput.emptyInput()
         } else {
-            this.setState({ validationPrice: true })
+            this.setState({ validPrice: true })
         }
-        if (images.length < 1) {
-            this.setState({ validationImages: false })
-            alert('Добавте пожалуюста хотябы одну фото')
+        if (!this.state.title) {
+            this.setState({ validTitle: false })
+            this.refs.titleInput.emptyInput()
         } else {
-            this.setState({ validationImages: true })
+            this.setState({ validTitle: true })
         }
         !this.state.region ? this.refs.chooseRegion.emptyRegion() : this.setState({ validRegion: true })
+        !this.state.schedule ? this.refs.scheduleSelect.emptySelect() : this.setState({ validSchedule: true })
+        !this.state.workExperience ? this.refs.workExperienceSelect.emptySelect() : this.setState({ validWorkExperience: true })
+        !this.state.gender ? this.refs.genderSelect.emptySelect() : this.setState({ validGender: true })
+        !this.state.age ? this.refs.ageSelect.emptySelect() : this.setState({ validAge: true })
 
-        if (this.state.validationTitle && this.state.validationPrice && this.state.validationImages && this.state.validationRegion) {
+        if (this.state.validPrice && this.state.validRegion && this.state.validTitle &&
+            this.state.validSchedule && this.state.validWorkExperience && this.state.validGender && this.state.validAge) {
             this.setState({ publishButtonLoading: true})
             const data = new FormData();
             data.append('title', this.state.title)
+            data.append('work_experience', this.state.workExperience)
+            data.append('schedule', this.state.schedule)
+            data.append('gender', this.state.gender)
+            data.append('age', this.state.age)
             data.append('price', this.state.price)
             data.append('description', this.state.description)
             data.append('category' ,this.props.navigation.getParam('category').id)
@@ -119,6 +137,12 @@ class SimpleForm extends React.Component{
                         alert('Извините что-то пошло не так повторите попытку позже')
                     }
                 })
+        } else {
+            console.log(this.state.validTitle)
+            console.log(this.state.validPrice)
+            console.log(this.state.validRegion)
+            console.log(this.state.validSchedule)
+            console.log(this.state.validWorkExperience)
         }
     }
 
@@ -145,8 +169,6 @@ class SimpleForm extends React.Component{
                     />
                 </View>
 
-
-
                 <View>
                     <CustomTextInput
                         placeholder="Названия"
@@ -154,6 +176,47 @@ class SimpleForm extends React.Component{
                         ref="titleInput"
                     />
                 </View>
+
+
+                <RenderForSelectItem
+                    whatChoose='График работы'
+                    itemList= { this.props.schedule }
+                    setItem={ (item) => this.setState({ schedule: item[0] })}
+                    navigation={ this.props.navigation }
+                    renderIndex={1}
+                    ref='scheduleSelect'
+                />
+
+
+                <RenderForSelectItem
+                    whatChoose='Опыть работы'
+                    itemList= { this.props.workExperience }
+                    setItem={ (item) => this.setState({ workExperience: item[0] })}
+                    navigation={ this.props.navigation }
+                    renderIndex={1}
+                    ref='workExperienceSelect'
+                />
+
+
+                <RenderForSelectItem
+                    whatChoose='Поль'
+                    itemList= { this.state.genderList }
+                    setItem={ (item) => this.setState({ gender: item[0] })}
+                    navigation={ this.props.navigation }
+                    renderIndex={1}
+                    ref='genderSelect'
+                />
+
+
+                <RenderForSelectItem
+                    whatChoose='Возраст'
+                    itemList= { this.generateArray(38) }
+                    setItem={ (item) => this.setState({ age: item[0] })}
+                    navigation={ this.props.navigation }
+                    renderIndex={0}
+                    ref='ageSelect'
+                />
+
 
 
                 <View>
@@ -216,7 +279,9 @@ class SimpleForm extends React.Component{
 const mapStateToProps = state => {
     return {
         regions: state.ads.regions.data,
-        profile: state.profile.profile
+        profile: state.profile.profile,
+        schedule: state.general.scheduleGeneral.data,
+        workExperience: state.general.workExperienceGeneral.data,
     };
 };
 
@@ -224,4 +289,4 @@ const mapDispatchToProps = {
     addNewItem,
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(SimpleForm);
+export default  connect(mapStateToProps, mapDispatchToProps)(ResumeForm);

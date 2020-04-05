@@ -26,6 +26,21 @@ class RenderCategoryList extends React.Component {
                 case 172:
                     this.props.navigation.navigate('avtomobileForm', {category: this.props.category})
                     break;
+                case 169:
+                    this.props.navigation.navigate('apartmentForm', {category: this.props.category})
+                    break;
+                case 170:
+                    this.props.navigation.navigate('houseForm', {category: this.props.category})
+                    break;
+                case 171:
+                    this.props.navigation.navigate('landForm', {category: this.props.category})
+                    break;
+                case 167:
+                    this.props.navigation.navigate('vacancyForm', {category: this.props.category})
+                    break;
+                case 168:
+                    this.props.navigation.navigate('resumeForm', {category: this.props.category})
+                    break;
                 default:
                     this.props.navigation.navigate('simpleForm', {category: this.props.category})
             }

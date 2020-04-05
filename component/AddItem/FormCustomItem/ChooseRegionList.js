@@ -8,7 +8,7 @@ class ChooseRegionList extends React.Component{
 
         this.state = {
             placeholderColor: '#969494',
-            region: '',
+            region: this.props.defaultValue,
         }
 
         this.RegionList = this.RegionList.bind(this)
@@ -29,7 +29,6 @@ class ChooseRegionList extends React.Component{
     }
 
     render() {
-
         return (
             <View
                 style={{

@@ -8,9 +8,10 @@ class RenderForSelectItem extends React.Component{
         super(props)
 
         this.state = {
-            item: '',
+            item: this.props.defaultValue,
             placeholderColor: '#949496',
         }
+
     }
 
     toEmptyValue = () => {

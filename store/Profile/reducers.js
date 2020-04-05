@@ -9,6 +9,7 @@ import {
     ADD_REMOVE_FAVORITE_LOADING,
     GET_USER_AD_DETAIL,
     GET_USER_AD_DETAIL_ERROR,
+    GET_USER_AD_DETAIL_ERROR_204,
 } from './actions'
 
 const defaultState = {
@@ -76,6 +77,12 @@ export const profileReducer = (state=defaultState, action) => {
             return {
                 ...state,
                 UserAdDetailLoad: false
+            }
+        case GET_USER_AD_DETAIL_ERROR_204:
+            return {
+                ...state,
+                UserAdDetail: 204,
+                UserAdDetailLoad: false,
             }
         case GET_USER_AD_DETAIL:
             return {

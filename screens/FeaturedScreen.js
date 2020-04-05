@@ -60,6 +60,7 @@ class FeaturedScreen extends React.Component {
                                     add_date = {item.add_date}
                                     slug={item.slug}
                                     region_title={item.region_title}
+                                    category_slug={item.category_slug}
                                 />
                             </TouchableOpacity>
                         )}

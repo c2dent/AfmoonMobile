@@ -101,7 +101,8 @@ class AdDetailContainer extends React.Component {
         return {
             headerRight: () => {
                 return (
-                    <IconFeatured favorite={navigation.state.params.favorite}
+                    <IconFeatured
+                        favorite={navigation.state.params.favorite}
                         addRemoveFavorite={navigation.state.params.addRemoveFavorite}
                         product_id={navigation.state.params.product_id}
                         uploadAd={navigation.state.params.uploadAd}

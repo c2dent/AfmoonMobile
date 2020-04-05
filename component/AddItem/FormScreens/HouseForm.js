@@ -15,21 +15,23 @@ import ChooseRegionList from '../FormCustomItem/ChooseRegionList'
 
 
 
-class SimpleForm extends React.Component{
+class HouseForm extends React.Component{
     constructor(props){
         super(props)
 
         this.state = {
-            title: '',
             price: '',
             description:'',
             region: '',
             category:'',
+            houseArea:'',
+            landArea:'',
             images: [],
-            validationTitle: false,
-            validationPrice: false,
-            validationImages: false,
-            validationRegion: false,
+            validPrice: false,
+            validImages: false,
+            validRegion: false,
+            validHouseArea: false,
+            validLandArea: false,
             publishButtonLoading: false,
         }
         this.Validation = this.Validation.bind(this)
@@ -74,30 +76,39 @@ class SimpleForm extends React.Component{
 
     Validation = () => {
         let images = this.validImage()
-        if (!this.state.title) {
-            this.setState({ validationTitle: false})
-            this.refs.titleInput.emptyInput()
+        if (!this.state.landArea) {
+            this.setState({ validLandArea: false })
+            this.refs.landAreaInput.emptyInput()
         } else {
-            this.setState({ validationTitle: true})
+            this.setState({ validLandArea: true })
+        }
+        if (!this.state.houseArea) {
+            this.setState({ validHouseArea: false })
+            this.refs.houseAreaInput.emptyInput()
+        } else {
+            this.setState({ validHouseArea: true })
         }
         if (!this.state.price) {
-            this.setState({ validationPrice: false })
+            this.setState({ validPrice: false })
             this.refs.priceInput.emptyInput()
         } else {
-            this.setState({ validationPrice: true })
+            this.setState({ validPrice: true })
         }
         if (images.length < 1) {
-            this.setState({ validationImages: false })
+            this.setState({ validImages: false })
             alert('Добавте пожалуюста хотябы одну фото')
         } else {
-            this.setState({ validationImages: true })
+            this.setState({ validImages: true })
         }
         !this.state.region ? this.refs.chooseRegion.emptyRegion() : this.setState({ validRegion: true })
 
-        if (this.state.validationTitle && this.state.validationPrice && this.state.validationImages && this.state.validationRegion) {
+        if (this.state.validPrice && this.state.validImages && this.state.validRegion &&
+            this.state.validHouseArea && this.state.validLandArea) {
             this.setState({ publishButtonLoading: true})
             const data = new FormData();
-            data.append('title', this.state.title)
+            data.append('title', this.state.houseArea)
+            data.append('house_area', this.state.houseArea)
+            data.append('land_area', this.state.landArea)
             data.append('price', this.state.price)
             data.append('description', this.state.description)
             data.append('category' ,this.props.navigation.getParam('category').id)
@@ -119,6 +130,13 @@ class SimpleForm extends React.Component{
                         alert('Извините что-то пошло не так повторите попытку позже')
                     }
                 })
+        } else {
+            console.log(this.state.validationTitle)
+            console.log(this.state.validationPrice)
+            console.log(this.state.validationImages)
+            console.log(this.state.validationRegion)
+            console.log(this.state.validLandArea)
+            console.log(this.state.validHouseArea)
         }
     }
 
@@ -146,14 +164,25 @@ class SimpleForm extends React.Component{
                 </View>
 
 
-
                 <View>
-                    <CustomTextInput
-                        placeholder="Названия"
-                        onChangeText={(text) => this.setState({ title: text})}
-                        ref="titleInput"
+                    <CustomNumberInput
+                        placeholder="Площадь участка"
+                        onChangeText={(number) => this.setState({ landArea: number})}
+                        ref="landAreaInput"
                     />
                 </View>
+
+
+
+                <View>
+                    <CustomNumberInput
+                        placeholder="Площадь дома"
+                        onChangeText={(number) => this.setState({ houseArea: number})}
+                        ref="houseAreaInput"
+                    />
+                </View>
+
+
 
 
                 <View>
@@ -224,4 +253,4 @@ const mapDispatchToProps = {
     addNewItem,
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(SimpleForm);
+export default  connect(mapStateToProps, mapDispatchToProps)(HouseForm);

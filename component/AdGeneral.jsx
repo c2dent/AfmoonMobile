@@ -31,6 +31,24 @@ class IconFeatured extends React.Component {
     }
 }
 
+
+const renderTitle = (category, title) => {
+    let titleList = title.split(',')
+    if (category == 'kvartiry') {
+        return titleList[0] == 11 ? 'Студия, ' + titleList[1] + 'м' + '\u00B2' : titleList[0] + '-к квартира, ' + titleList[1] +' м' + '\u00B2'
+    }
+    else if (category == 'doma-dachi-kottedzhi') {
+        return 'Дом, ' + title + 'м' + '\u00B2'
+    }
+    else if (category == 'zemelnye-uchastki') {
+        return 'земельный участок, ' + title + 'м' + '\u00B2'
+    }
+    else {
+        return title
+    }
+}
+
+
 const AdGeneral = (data) => {
     return (
         <View style={styles.wrapAdGeneral}>
@@ -56,12 +74,12 @@ const AdGeneral = (data) => {
             </View>
             <View style={ styles.rightItem }>
                 <View style={ styles.adGeneralInfo }>
-                    <Text>{ data.title }</Text>
+                    <Text>{ renderTitle(data.category_slug, data.title) }</Text>
                     <Text style={ styles.adPrice }>{ data.price } M</Text>
-                    <Text>{ data.region_title }</Text>
+                    <Text style={{ color: '#949496', fontSize:15 }}>{ data.region_title }</Text>
                 </View>
                 <View style={ styles.adPublicDate }>
-                    <Text>{Moment(data.add_date).format('MMMM D, H:mm')}</Text>
+                    <Text style={{ color: '#949496', fontSize:15 }}>{Moment(data.add_date).format('MMMM D, H:mm')}</Text>
                 </View>
             </View>
         </View>
@@ -93,7 +111,7 @@ const styles = StyleSheet.create({
         flex:7
     },
     adPublicDate:{
-        flex:2
+        flex:2,
     },
     adPrice: {
         fontSize: 18,

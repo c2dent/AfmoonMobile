@@ -10,11 +10,17 @@ export const ADD_REMOVE_FAVORITE = 'ADD_REMOVE_FAVORITE'
 export const ADD_REMOVE_FAVORITE_LOADING = 'ADD_REMOVE_FAVORITE_LOADING'
 export const ADD_REMOVE_FAVORITE_LOADED = 'ADD_REMOVE_FAVORITE_LOADED'
 export const GET_USER_AD_DETAIL = 'GET_USER_AD_DETAIL'
+export const GET_USER_AD_DETAIL_ERROR_204 = 'GET_USER_AD_DETAIL_ERROR_204'
 export const GET_USER_AD_DETAIL_ERROR = 'GET_USER_AD_DETAIL_ERROR'
 
 
 export const setUserAdDetailError = () => ({
     type: GET_USER_AD_DETAIL_ERROR,
+    payload: ''
+})
+
+export const setUserAdDetailError204 = () => ({
+    type: GET_USER_AD_DETAIL_ERROR_204,
     payload: ''
 })
 
@@ -127,7 +133,7 @@ export const addRemoveFavorite = (id) => {
 
 export const ActivateDisableAd = (slug) => {
     return (dispatch) => {
-        return axios.put('edit-ad/active/' + slug + '/')
+        return axios.put('api/edit-ad/active/' + slug + '/')
             .then((response) => {
                 return response
             })
@@ -140,12 +146,23 @@ export const getUserAd = (region, category, slug) => {
             .then(response => {
                 if (response.status == 200) {
                     dispatch(setUserAdDetail(response.data))
+                } else if (response.status == 204) {
+                    dispatch(setUserAdDetailError204())
                 } else {
                     dispatch(setUserAdDetailError())
                 }
             })
             .catch(error => {
                 throw error;
+            })
+    }
+}
+
+export const deleteUserAd = (slug) => {
+    return (dispatch) => {
+        return axios.delete('api/edit-ad/' + slug + '/')
+            .then((response) => {
+                return response
             })
     }
 }
